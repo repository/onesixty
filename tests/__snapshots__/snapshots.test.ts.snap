@@ -1,0 +1,3854 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`snapshot: TokenKind enum > all token kinds 1`] = `
+{
+  "And": 0,
+  "Comma": 13,
+  "Dot": 12,
+  "EOF": 17,
+  "Equals": 3,
+  "GreaterEquals": 8,
+  "GreaterThan": 7,
+  "Has": 9,
+  "LParen": 10,
+  "LessEquals": 6,
+  "LessThan": 5,
+  "Minus": 14,
+  "Not": 2,
+  "NotEquals": 4,
+  "Or": 1,
+  "RParen": 11,
+  "String": 16,
+  "Text": 15,
+}
+`;
+
+exports[`snapshot: TokenKind enum > isComparatorKind 1`] = `
+{
+  "And": false,
+  "Comma": false,
+  "Dot": false,
+  "EOF": false,
+  "Equals": true,
+  "GreaterEquals": true,
+  "GreaterThan": true,
+  "Has": true,
+  "LParen": false,
+  "LessEquals": true,
+  "LessThan": true,
+  "Minus": false,
+  "Not": false,
+  "NotEquals": true,
+  "Or": false,
+  "RParen": false,
+  "String": false,
+  "Text": false,
+}
+`;
+
+exports[`snapshot: compile > AST structure 1`] = `
+{
+  "children": [
+    {
+      "arg": {
+        "quoted": false,
+        "span": {
+          "end": 5,
+          "start": 4,
+        },
+        "type": "value",
+        "value": "1",
+      },
+      "comparable": {
+        "path": [
+          "a",
+        ],
+        "span": {
+          "end": 1,
+          "start": 0,
+        },
+        "type": "member",
+      },
+      "comparator": "=",
+      "span": {
+        "end": 5,
+        "start": 0,
+      },
+      "type": "restriction",
+    },
+    {
+      "arg": {
+        "quoted": false,
+        "span": {
+          "end": 13,
+          "start": 12,
+        },
+        "type": "value",
+        "value": "*",
+      },
+      "comparable": {
+        "path": [
+          "b",
+        ],
+        "span": {
+          "end": 11,
+          "start": 10,
+        },
+        "type": "member",
+      },
+      "comparator": ":",
+      "span": {
+        "end": 13,
+        "start": 10,
+      },
+      "type": "restriction",
+    },
+  ],
+  "span": {
+    "end": 13,
+    "start": 0,
+  },
+  "type": "and",
+}
+`;
+
+exports[`snapshot: compile > compiled filter evaluates 1`] = `true`;
+
+exports[`snapshot: compile > compiled filter evaluates 2`] = `false`;
+
+exports[`snapshot: compile > expression preserved 1`] = `"a = 1 AND b:*"`;
+
+exports[`snapshot: compile > fromSerialized round-trip 1`] = `"power >= 5 AND name = "Madoka""`;
+
+exports[`snapshot: compile > fromSerialized round-trip 2`] = `true`;
+
+exports[`snapshot: compile > fromSerialized round-trip 3`] = `false`;
+
+exports[`snapshot: compile > toSerialized 1`] = `
+{
+  "ast": {
+    "arg": {
+      "quoted": false,
+      "span": {
+        "end": 10,
+        "start": 9,
+      },
+      "type": "value",
+      "value": "5",
+    },
+    "comparable": {
+      "path": [
+        "power",
+      ],
+      "span": {
+        "end": 5,
+        "start": 0,
+      },
+      "type": "member",
+    },
+    "comparator": ">=",
+    "span": {
+      "end": 10,
+      "start": 0,
+    },
+    "type": "restriction",
+  },
+  "expression": "power >= 5",
+  "v": 1,
+}
+`;
+
+exports[`snapshot: compile > toSerialized: empty filter 1`] = `
+{
+  "ast": null,
+  "expression": "",
+  "v": 1,
+}
+`;
+
+exports[`snapshot: errors > depth limit 1`] = `
+{
+  "description": "Maximum nesting depth exceeded (64)",
+  "hints": [],
+  "span": {
+    "end": 65,
+    "start": 64,
+  },
+  "type": "DepthLimitError",
+}
+`;
+
+exports[`snapshot: errors > double equals hint 1`] = `
+{
+  "description": "Expected a value after '=', found '='",
+  "hints": [
+    "Did you mean '=' (single equals)? AIP-160 uses '=' not '=='",
+  ],
+  "span": {
+    "end": 4,
+    "start": 3,
+  },
+  "type": "ExpectedValueError",
+}
+`;
+
+exports[`snapshot: errors > empty parentheses 1`] = `
+{
+  "description": "Expected an expression inside parentheses",
+  "hints": [],
+  "span": {
+    "end": 2,
+    "start": 1,
+  },
+  "type": "EmptyExpressionError",
+}
+`;
+
+exports[`snapshot: errors > input length limit 1`] = `
+{
+  "description": "Filter exceeds maximum length of 8192 characters",
+  "hints": [],
+  "span": {
+    "end": 10000,
+    "start": 8192,
+  },
+  "type": "InputLengthError",
+}
+`;
+
+exports[`snapshot: errors > keyword as value 1`] = `
+{
+  "description": "Expected a value after '=', found keyword 'AND'",
+  "hints": [
+    "If you meant the literal text "AND", wrap it in quotes: "AND"",
+  ],
+  "span": {
+    "end": 7,
+    "start": 4,
+  },
+  "type": "ExpectedValueError",
+}
+`;
+
+exports[`snapshot: errors > keyword at start 1`] = `
+{
+  "description": "Expected a field name or value, found keyword 'AND'",
+  "hints": [
+    "'AND' is a keyword. If it's a field name, wrap it in quotes",
+  ],
+  "span": {
+    "end": 3,
+    "start": 0,
+  },
+  "type": "ExpectedIdentifierError",
+}
+`;
+
+exports[`snapshot: errors > missing value after comparator 1`] = `
+{
+  "description": "Expected a value after '=', found end of input",
+  "hints": [],
+  "span": {
+    "end": 3,
+    "start": 3,
+  },
+  "type": "ExpectedValueError",
+}
+`;
+
+exports[`snapshot: errors > negative field path 1`] = `
+{
+  "description": "Negative sign can only be applied to a numeric value, not a field path",
+  "hints": [],
+  "span": {
+    "end": 5,
+    "start": 4,
+  },
+  "type": "InvalidNegationError",
+}
+`;
+
+exports[`snapshot: errors > quoted function name 1`] = `
+{
+  "description": "Quoted strings cannot be used as function names",
+  "hints": [
+    "Remove the quotes: fn",
+  ],
+  "span": {
+    "end": 4,
+    "start": 0,
+  },
+  "type": "InvalidFunctionNameError",
+}
+`;
+
+exports[`snapshot: errors > trailing AND 1`] = `
+{
+  "description": "Expected an expression after 'AND', found end of input",
+  "hints": [],
+  "span": {
+    "end": 5,
+    "start": 5,
+  },
+  "type": "ExpectedExpressionError",
+}
+`;
+
+exports[`snapshot: errors > unclosed parenthesis 1`] = `
+{
+  "description": "Unclosed parenthesis: expected ')' to match '(' at position 0",
+  "hints": [
+    "Add ')' to match '(' at position 0",
+  ],
+  "span": {
+    "end": 2,
+    "start": 2,
+  },
+  "type": "UnclosedDelimiterError",
+}
+`;
+
+exports[`snapshot: errors > unexpected character 1`] = `
+{
+  "description": "Unexpected character '!'",
+  "hints": [
+    "Did you mean '!=' (not equals)?",
+  ],
+  "span": {
+    "end": 3,
+    "start": 2,
+  },
+  "type": "UnexpectedCharacterError",
+}
+`;
+
+exports[`snapshot: errors > unmatched closing paren 1`] = `
+{
+  "description": "Unexpected ')' after filter expression",
+  "hints": [
+    "No matching '(' found for this ')'",
+  ],
+  "span": {
+    "end": 2,
+    "start": 1,
+  },
+  "type": "UnexpectedTokenError",
+}
+`;
+
+exports[`snapshot: errors > unterminated string 1`] = `
+{
+  "description": "Unterminated string",
+  "hints": [
+    "Missing closing " quote",
+  ],
+  "span": {
+    "end": 6,
+    "start": 0,
+  },
+  "type": "UnterminatedStringError",
+}
+`;
+
+exports[`snapshot: evaluate > AND 1`] = `true`;
+
+exports[`snapshot: evaluate > NOT 1`] = `true`;
+
+exports[`snapshot: evaluate > OR 1`] = `true`;
+
+exports[`snapshot: evaluate > field traversal 1`] = `true`;
+
+exports[`snapshot: evaluate > function as LHS 1`] = `true`;
+
+exports[`snapshot: evaluate > function call 1`] = `true`;
+
+exports[`snapshot: evaluate > global restriction 1`] = `true`;
+
+exports[`snapshot: evaluate > has operator: array 1`] = `true`;
+
+exports[`snapshot: evaluate > has operator: array fanout 1`] = `true`;
+
+exports[`snapshot: evaluate > has operator: map key 1`] = `true`;
+
+exports[`snapshot: evaluate > has operator: presence 1`] = `true`;
+
+exports[`snapshot: evaluate > null AST 1`] = `true`;
+
+exports[`snapshot: evaluate > simple match 1`] = `true`;
+
+exports[`snapshot: evaluate > simple mismatch 1`] = `false`;
+
+exports[`snapshot: evaluate > type coercion: boolean 1`] = `true`;
+
+exports[`snapshot: evaluate > type coercion: number 1`] = `true`;
+
+exports[`snapshot: evaluate > unset field returns false 1`] = `false`;
+
+exports[`snapshot: evaluate > unset field with != returns false 1`] = `false`;
+
+exports[`snapshot: evaluate > wildcard match 1`] = `true`;
+
+exports[`snapshot: evaluateAsync > async function 1`] = `true`;
+
+exports[`snapshot: evaluateAsync > mixed sync and async 1`] = `true`;
+
+exports[`snapshot: filter > empty filter 1`] = `true`;
+
+exports[`snapshot: filter > match 1`] = `true`;
+
+exports[`snapshot: filter > mismatch 1`] = `false`;
+
+exports[`snapshot: filter > with options 1`] = `true`;
+
+exports[`snapshot: filterAsync > async match 1`] = `true`;
+
+exports[`snapshot: parse > AND expression 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 5,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": {
+                    "fields": [],
+                    "span": {
+                      "end": 5,
+                      "start": 4,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 5,
+                        "start": 4,
+                      },
+                      "token": {
+                        "end": 5,
+                        "kind": 15,
+                        "start": 4,
+                        "value": "1",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 1,
+                      "start": 0,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 1,
+                        "start": 0,
+                      },
+                      "token": {
+                        "end": 1,
+                        "kind": 15,
+                        "start": 0,
+                        "value": "a",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": 3,
+                  "span": {
+                    "end": 5,
+                    "start": 0,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 5,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 5,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 15,
+              "start": 10,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": {
+                    "fields": [],
+                    "span": {
+                      "end": 15,
+                      "start": 14,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 15,
+                        "start": 14,
+                      },
+                      "token": {
+                        "end": 15,
+                        "kind": 15,
+                        "start": 14,
+                        "value": "2",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 11,
+                      "start": 10,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 11,
+                        "start": 10,
+                      },
+                      "token": {
+                        "end": 11,
+                        "kind": 15,
+                        "start": 10,
+                        "value": "b",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": 3,
+                  "span": {
+                    "end": 15,
+                    "start": 10,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 15,
+                  "start": 10,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 15,
+          "start": 10,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 15,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 15,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: parse > NOT negation 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 9,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": true,
+                "simple": {
+                  "arg": {
+                    "fields": [],
+                    "span": {
+                      "end": 9,
+                      "start": 8,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 9,
+                        "start": 8,
+                      },
+                      "token": {
+                        "end": 9,
+                        "kind": 15,
+                        "start": 8,
+                        "value": "1",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 5,
+                      "start": 4,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 5,
+                        "start": 4,
+                      },
+                      "token": {
+                        "end": 5,
+                        "kind": 15,
+                        "start": 4,
+                        "value": "a",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": 3,
+                  "span": {
+                    "end": 9,
+                    "start": 4,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 9,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 9,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 9,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 9,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: parse > OR expression 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 14,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": {
+                    "fields": [],
+                    "span": {
+                      "end": 5,
+                      "start": 4,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 5,
+                        "start": 4,
+                      },
+                      "token": {
+                        "end": 5,
+                        "kind": 15,
+                        "start": 4,
+                        "value": "1",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 1,
+                      "start": 0,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 1,
+                        "start": 0,
+                      },
+                      "token": {
+                        "end": 1,
+                        "kind": 15,
+                        "start": 0,
+                        "value": "a",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": 3,
+                  "span": {
+                    "end": 5,
+                    "start": 0,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 5,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+              {
+                "negated": false,
+                "simple": {
+                  "arg": {
+                    "fields": [],
+                    "span": {
+                      "end": 14,
+                      "start": 13,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 14,
+                        "start": 13,
+                      },
+                      "token": {
+                        "end": 14,
+                        "kind": 15,
+                        "start": 13,
+                        "value": "2",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 10,
+                      "start": 9,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 10,
+                        "start": 9,
+                      },
+                      "token": {
+                        "end": 10,
+                        "kind": 15,
+                        "start": 9,
+                        "value": "b",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": 3,
+                  "span": {
+                    "end": 14,
+                    "start": 9,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 14,
+                  "start": 9,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 14,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 14,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 14,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: parse > bare literal 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 10,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": null,
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 10,
+                      "start": 0,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 10,
+                        "start": 0,
+                      },
+                      "token": {
+                        "end": 10,
+                        "kind": 15,
+                        "start": 0,
+                        "value": "mitakihara",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": null,
+                  "span": {
+                    "end": 10,
+                    "start": 0,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 10,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 10,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 10,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 10,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: parse > complex expression 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 10,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": {
+                    "fields": [],
+                    "span": {
+                      "end": 10,
+                      "start": 9,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 10,
+                        "start": 9,
+                      },
+                      "token": {
+                        "end": 10,
+                        "kind": 15,
+                        "start": 9,
+                        "value": "5",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 5,
+                      "start": 0,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 5,
+                        "start": 0,
+                      },
+                      "token": {
+                        "end": 5,
+                        "kind": 15,
+                        "start": 0,
+                        "value": "power",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": 8,
+                  "span": {
+                    "end": 10,
+                    "start": 0,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 10,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 10,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 49,
+              "start": 15,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "expression": {
+                    "sequences": [
+                      {
+                        "factors": [
+                          {
+                            "span": {
+                              "end": 48,
+                              "start": 16,
+                            },
+                            "terms": [
+                              {
+                                "negated": false,
+                                "simple": {
+                                  "arg": {
+                                    "fields": [],
+                                    "span": {
+                                      "end": 31,
+                                      "start": 23,
+                                    },
+                                    "type": "Member",
+                                    "value": {
+                                      "span": {
+                                        "end": 31,
+                                        "start": 23,
+                                      },
+                                      "token": {
+                                        "end": 31,
+                                        "kind": 16,
+                                        "start": 23,
+                                        "value": "Madoka",
+                                      },
+                                      "type": "Value",
+                                    },
+                                  },
+                                  "comparable": {
+                                    "fields": [],
+                                    "span": {
+                                      "end": 20,
+                                      "start": 16,
+                                    },
+                                    "type": "Member",
+                                    "value": {
+                                      "span": {
+                                        "end": 20,
+                                        "start": 16,
+                                      },
+                                      "token": {
+                                        "end": 20,
+                                        "kind": 15,
+                                        "start": 16,
+                                        "value": "name",
+                                      },
+                                      "type": "Value",
+                                    },
+                                  },
+                                  "comparator": 3,
+                                  "span": {
+                                    "end": 31,
+                                    "start": 16,
+                                  },
+                                  "type": "Restriction",
+                                },
+                                "span": {
+                                  "end": 31,
+                                  "start": 16,
+                                },
+                                "type": "Term",
+                              },
+                              {
+                                "negated": false,
+                                "simple": {
+                                  "arg": {
+                                    "fields": [],
+                                    "span": {
+                                      "end": 48,
+                                      "start": 42,
+                                    },
+                                    "type": "Member",
+                                    "value": {
+                                      "span": {
+                                        "end": 48,
+                                        "start": 42,
+                                      },
+                                      "token": {
+                                        "end": 48,
+                                        "kind": 15,
+                                        "start": 42,
+                                        "value": "active",
+                                      },
+                                      "type": "Value",
+                                    },
+                                  },
+                                  "comparable": {
+                                    "fields": [],
+                                    "span": {
+                                      "end": 41,
+                                      "start": 35,
+                                    },
+                                    "type": "Member",
+                                    "value": {
+                                      "span": {
+                                        "end": 41,
+                                        "start": 35,
+                                      },
+                                      "token": {
+                                        "end": 41,
+                                        "kind": 15,
+                                        "start": 35,
+                                        "value": "status",
+                                      },
+                                      "type": "Value",
+                                    },
+                                  },
+                                  "comparator": 9,
+                                  "span": {
+                                    "end": 48,
+                                    "start": 35,
+                                  },
+                                  "type": "Restriction",
+                                },
+                                "span": {
+                                  "end": 48,
+                                  "start": 35,
+                                },
+                                "type": "Term",
+                              },
+                            ],
+                            "type": "Factor",
+                          },
+                        ],
+                        "span": {
+                          "end": 48,
+                          "start": 16,
+                        },
+                        "type": "Sequence",
+                      },
+                    ],
+                    "span": {
+                      "end": 48,
+                      "start": 16,
+                    },
+                    "type": "Expression",
+                  },
+                  "span": {
+                    "end": 49,
+                    "start": 15,
+                  },
+                  "type": "Composite",
+                },
+                "span": {
+                  "end": 49,
+                  "start": 15,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 49,
+          "start": 15,
+        },
+        "type": "Sequence",
+      },
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 73,
+              "start": 54,
+            },
+            "terms": [
+              {
+                "negated": true,
+                "simple": {
+                  "arg": {
+                    "fields": [],
+                    "span": {
+                      "end": 73,
+                      "start": 69,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 73,
+                        "start": 69,
+                      },
+                      "token": {
+                        "end": 73,
+                        "kind": 15,
+                        "start": 69,
+                        "value": "true",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 66,
+                      "start": 58,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 66,
+                        "start": 58,
+                      },
+                      "token": {
+                        "end": 66,
+                        "kind": 15,
+                        "start": 58,
+                        "value": "disabled",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": 3,
+                  "span": {
+                    "end": 73,
+                    "start": 58,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 73,
+                  "start": 54,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 73,
+          "start": 54,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 73,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 73,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: parse > composite (parenthesized) 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 16,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "expression": {
+                    "sequences": [
+                      {
+                        "factors": [
+                          {
+                            "span": {
+                              "end": 15,
+                              "start": 1,
+                            },
+                            "terms": [
+                              {
+                                "negated": false,
+                                "simple": {
+                                  "arg": {
+                                    "fields": [],
+                                    "span": {
+                                      "end": 6,
+                                      "start": 5,
+                                    },
+                                    "type": "Member",
+                                    "value": {
+                                      "span": {
+                                        "end": 6,
+                                        "start": 5,
+                                      },
+                                      "token": {
+                                        "end": 6,
+                                        "kind": 15,
+                                        "start": 5,
+                                        "value": "1",
+                                      },
+                                      "type": "Value",
+                                    },
+                                  },
+                                  "comparable": {
+                                    "fields": [],
+                                    "span": {
+                                      "end": 2,
+                                      "start": 1,
+                                    },
+                                    "type": "Member",
+                                    "value": {
+                                      "span": {
+                                        "end": 2,
+                                        "start": 1,
+                                      },
+                                      "token": {
+                                        "end": 2,
+                                        "kind": 15,
+                                        "start": 1,
+                                        "value": "a",
+                                      },
+                                      "type": "Value",
+                                    },
+                                  },
+                                  "comparator": 3,
+                                  "span": {
+                                    "end": 6,
+                                    "start": 1,
+                                  },
+                                  "type": "Restriction",
+                                },
+                                "span": {
+                                  "end": 6,
+                                  "start": 1,
+                                },
+                                "type": "Term",
+                              },
+                              {
+                                "negated": false,
+                                "simple": {
+                                  "arg": {
+                                    "fields": [],
+                                    "span": {
+                                      "end": 15,
+                                      "start": 14,
+                                    },
+                                    "type": "Member",
+                                    "value": {
+                                      "span": {
+                                        "end": 15,
+                                        "start": 14,
+                                      },
+                                      "token": {
+                                        "end": 15,
+                                        "kind": 15,
+                                        "start": 14,
+                                        "value": "2",
+                                      },
+                                      "type": "Value",
+                                    },
+                                  },
+                                  "comparable": {
+                                    "fields": [],
+                                    "span": {
+                                      "end": 11,
+                                      "start": 10,
+                                    },
+                                    "type": "Member",
+                                    "value": {
+                                      "span": {
+                                        "end": 11,
+                                        "start": 10,
+                                      },
+                                      "token": {
+                                        "end": 11,
+                                        "kind": 15,
+                                        "start": 10,
+                                        "value": "b",
+                                      },
+                                      "type": "Value",
+                                    },
+                                  },
+                                  "comparator": 3,
+                                  "span": {
+                                    "end": 15,
+                                    "start": 10,
+                                  },
+                                  "type": "Restriction",
+                                },
+                                "span": {
+                                  "end": 15,
+                                  "start": 10,
+                                },
+                                "type": "Term",
+                              },
+                            ],
+                            "type": "Factor",
+                          },
+                        ],
+                        "span": {
+                          "end": 15,
+                          "start": 1,
+                        },
+                        "type": "Sequence",
+                      },
+                    ],
+                    "span": {
+                      "end": 15,
+                      "start": 1,
+                    },
+                    "type": "Expression",
+                  },
+                  "span": {
+                    "end": 16,
+                    "start": 0,
+                  },
+                  "type": "Composite",
+                },
+                "span": {
+                  "end": 16,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 16,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 16,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 16,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: parse > empty filter 1`] = `
+{
+  "expression": null,
+  "span": {
+    "end": 0,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: parse > field traversal 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 13,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": {
+                    "fields": [],
+                    "span": {
+                      "end": 13,
+                      "start": 8,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 13,
+                        "start": 8,
+                      },
+                      "token": {
+                        "end": 13,
+                        "kind": 16,
+                        "start": 8,
+                        "value": "foo",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparable": {
+                    "fields": [
+                      {
+                        "span": {
+                          "end": 3,
+                          "start": 2,
+                        },
+                        "token": {
+                          "end": 3,
+                          "kind": 15,
+                          "start": 2,
+                          "value": "b",
+                        },
+                        "type": "Value",
+                      },
+                      {
+                        "span": {
+                          "end": 5,
+                          "start": 4,
+                        },
+                        "token": {
+                          "end": 5,
+                          "kind": 15,
+                          "start": 4,
+                          "value": "c",
+                        },
+                        "type": "Value",
+                      },
+                    ],
+                    "span": {
+                      "end": 5,
+                      "start": 0,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 1,
+                        "start": 0,
+                      },
+                      "token": {
+                        "end": 1,
+                        "kind": 15,
+                        "start": 0,
+                        "value": "a",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": 3,
+                  "span": {
+                    "end": 13,
+                    "start": 0,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 13,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 13,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 13,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 13,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: parse > function as restriction arg 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 25,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": {
+                    "args": [
+                      {
+                        "fields": [
+                          {
+                            "span": {
+                              "end": 24,
+                              "start": 20,
+                            },
+                            "token": {
+                              "end": 24,
+                              "kind": 15,
+                              "start": 20,
+                              "value": "user",
+                            },
+                            "type": "Value",
+                          },
+                        ],
+                        "span": {
+                          "end": 24,
+                          "start": 12,
+                        },
+                        "type": "Member",
+                        "value": {
+                          "span": {
+                            "end": 19,
+                            "start": 12,
+                          },
+                          "token": {
+                            "end": 19,
+                            "kind": 15,
+                            "start": 12,
+                            "value": "request",
+                          },
+                          "type": "Value",
+                        },
+                      },
+                    ],
+                    "name": [
+                      {
+                        "span": {
+                          "end": 11,
+                          "start": 5,
+                        },
+                        "token": {
+                          "end": 11,
+                          "kind": 15,
+                          "start": 5,
+                          "value": "cohort",
+                        },
+                        "type": "Value",
+                      },
+                    ],
+                    "span": {
+                      "end": 25,
+                      "start": 5,
+                    },
+                    "type": "FunctionCall",
+                  },
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 1,
+                      "start": 0,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 1,
+                        "start": 0,
+                      },
+                      "token": {
+                        "end": 1,
+                        "kind": 15,
+                        "start": 0,
+                        "value": "x",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": 6,
+                  "span": {
+                    "end": 25,
+                    "start": 0,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 25,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 25,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 25,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 25,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: parse > function call no args 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 4,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": null,
+                  "comparable": {
+                    "args": [],
+                    "name": [
+                      {
+                        "span": {
+                          "end": 2,
+                          "start": 0,
+                        },
+                        "token": {
+                          "end": 2,
+                          "kind": 15,
+                          "start": 0,
+                          "value": "fn",
+                        },
+                        "type": "Value",
+                      },
+                    ],
+                    "span": {
+                      "end": 4,
+                      "start": 0,
+                    },
+                    "type": "FunctionCall",
+                  },
+                  "comparator": null,
+                  "span": {
+                    "end": 4,
+                    "start": 0,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 4,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 4,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 4,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 4,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: parse > function call with args 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 22,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": null,
+                  "comparable": {
+                    "args": [
+                      {
+                        "fields": [
+                          {
+                            "span": {
+                              "end": 11,
+                              "start": 8,
+                            },
+                            "token": {
+                              "end": 11,
+                              "kind": 15,
+                              "start": 8,
+                              "value": "key",
+                            },
+                            "type": "Value",
+                          },
+                        ],
+                        "span": {
+                          "end": 11,
+                          "start": 6,
+                        },
+                        "type": "Member",
+                        "value": {
+                          "span": {
+                            "end": 7,
+                            "start": 6,
+                          },
+                          "token": {
+                            "end": 7,
+                            "kind": 15,
+                            "start": 6,
+                            "value": "m",
+                          },
+                          "type": "Value",
+                        },
+                      },
+                      {
+                        "fields": [],
+                        "span": {
+                          "end": 21,
+                          "start": 13,
+                        },
+                        "type": "Member",
+                        "value": {
+                          "span": {
+                            "end": 21,
+                            "start": 13,
+                          },
+                          "token": {
+                            "end": 21,
+                            "kind": 16,
+                            "start": 13,
+                            "value": "^prod$",
+                          },
+                          "type": "Value",
+                        },
+                      },
+                    ],
+                    "name": [
+                      {
+                        "span": {
+                          "end": 5,
+                          "start": 0,
+                        },
+                        "token": {
+                          "end": 5,
+                          "kind": 15,
+                          "start": 0,
+                          "value": "regex",
+                        },
+                        "type": "Value",
+                      },
+                    ],
+                    "span": {
+                      "end": 22,
+                      "start": 0,
+                    },
+                    "type": "FunctionCall",
+                  },
+                  "comparator": null,
+                  "span": {
+                    "end": 22,
+                    "start": 0,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 22,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 22,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 22,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 22,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: parse > has operator 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 7,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": {
+                    "fields": [],
+                    "span": {
+                      "end": 7,
+                      "start": 6,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 7,
+                        "start": 6,
+                      },
+                      "token": {
+                        "end": 7,
+                        "kind": 15,
+                        "start": 6,
+                        "value": "*",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparable": {
+                    "fields": [
+                      {
+                        "span": {
+                          "end": 5,
+                          "start": 2,
+                        },
+                        "token": {
+                          "end": 5,
+                          "kind": 15,
+                          "start": 2,
+                          "value": "foo",
+                        },
+                        "type": "Value",
+                      },
+                    ],
+                    "span": {
+                      "end": 5,
+                      "start": 0,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 1,
+                        "start": 0,
+                      },
+                      "token": {
+                        "end": 1,
+                        "kind": 15,
+                        "start": 0,
+                        "value": "m",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": 9,
+                  "span": {
+                    "end": 7,
+                    "start": 0,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 7,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 7,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 7,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 7,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: parse > implicit AND (sequence) 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 10,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": null,
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 10,
+                      "start": 0,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 10,
+                        "start": 0,
+                      },
+                      "token": {
+                        "end": 10,
+                        "kind": 15,
+                        "start": 0,
+                        "value": "Mitakihara",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": null,
+                  "span": {
+                    "end": 10,
+                    "start": 0,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 10,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+          {
+            "span": {
+              "end": 18,
+              "start": 11,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": null,
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 18,
+                      "start": 11,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 18,
+                        "start": 11,
+                      },
+                      "token": {
+                        "end": 18,
+                        "kind": 15,
+                        "start": 11,
+                        "value": "Magical",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": null,
+                  "span": {
+                    "end": 18,
+                    "start": 11,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 18,
+                  "start": 11,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+          {
+            "span": {
+              "end": 24,
+              "start": 19,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": null,
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 24,
+                      "start": 19,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 24,
+                        "start": 19,
+                      },
+                      "token": {
+                        "end": 24,
+                        "kind": 15,
+                        "start": 19,
+                        "value": "Girls",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": null,
+                  "span": {
+                    "end": 24,
+                    "start": 19,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 24,
+                  "start": 19,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 24,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 24,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 24,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: parse > minus negation 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 13,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": true,
+                "simple": {
+                  "arg": {
+                    "fields": [],
+                    "span": {
+                      "end": 13,
+                      "start": 6,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 13,
+                        "start": 6,
+                      },
+                      "token": {
+                        "end": 13,
+                        "kind": 16,
+                        "start": 6,
+                        "value": ".java",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 5,
+                      "start": 1,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 5,
+                        "start": 1,
+                      },
+                      "token": {
+                        "end": 5,
+                        "kind": 15,
+                        "start": 1,
+                        "value": "file",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": 9,
+                  "span": {
+                    "end": 13,
+                    "start": 1,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 13,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 13,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 13,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 13,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: parse > negative numeric arg 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 9,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": {
+                    "fields": [
+                      {
+                        "span": {
+                          "end": 9,
+                          "start": 7,
+                        },
+                        "token": {
+                          "end": 9,
+                          "kind": 15,
+                          "start": 7,
+                          "value": "14",
+                        },
+                        "type": "Value",
+                      },
+                    ],
+                    "span": {
+                      "end": 9,
+                      "start": 4,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 6,
+                        "start": 4,
+                      },
+                      "token": {
+                        "end": 6,
+                        "kind": 15,
+                        "start": 4,
+                        "value": "-3",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 1,
+                      "start": 0,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 1,
+                        "start": 0,
+                      },
+                      "token": {
+                        "end": 1,
+                        "kind": 15,
+                        "start": 0,
+                        "value": "a",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": 3,
+                  "span": {
+                    "end": 9,
+                    "start": 0,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 9,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 9,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 9,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 9,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: parse > precedence: a AND b OR c 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 1,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": null,
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 1,
+                      "start": 0,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 1,
+                        "start": 0,
+                      },
+                      "token": {
+                        "end": 1,
+                        "kind": 15,
+                        "start": 0,
+                        "value": "a",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": null,
+                  "span": {
+                    "end": 1,
+                    "start": 0,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 1,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 1,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 12,
+              "start": 6,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": null,
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 7,
+                      "start": 6,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 7,
+                        "start": 6,
+                      },
+                      "token": {
+                        "end": 7,
+                        "kind": 15,
+                        "start": 6,
+                        "value": "b",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": null,
+                  "span": {
+                    "end": 7,
+                    "start": 6,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 7,
+                  "start": 6,
+                },
+                "type": "Term",
+              },
+              {
+                "negated": false,
+                "simple": {
+                  "arg": null,
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 12,
+                      "start": 11,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 12,
+                        "start": 11,
+                      },
+                      "token": {
+                        "end": 12,
+                        "kind": 15,
+                        "start": 11,
+                        "value": "c",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": null,
+                  "span": {
+                    "end": 12,
+                    "start": 11,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 12,
+                  "start": 11,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 12,
+          "start": 6,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 12,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 12,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: parse > qualified function 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 16,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": null,
+                  "comparable": {
+                    "args": [
+                      {
+                        "fields": [],
+                        "span": {
+                          "end": 15,
+                          "start": 9,
+                        },
+                        "type": "Member",
+                        "value": {
+                          "span": {
+                            "end": 15,
+                            "start": 9,
+                          },
+                          "token": {
+                            "end": 15,
+                            "kind": 16,
+                            "start": 9,
+                            "value": "30mb",
+                          },
+                          "type": "Value",
+                        },
+                      },
+                    ],
+                    "name": [
+                      {
+                        "span": {
+                          "end": 4,
+                          "start": 0,
+                        },
+                        "token": {
+                          "end": 4,
+                          "kind": 15,
+                          "start": 0,
+                          "value": "math",
+                        },
+                        "type": "Value",
+                      },
+                      {
+                        "span": {
+                          "end": 8,
+                          "start": 5,
+                        },
+                        "token": {
+                          "end": 8,
+                          "kind": 15,
+                          "start": 5,
+                          "value": "mem",
+                        },
+                        "type": "Value",
+                      },
+                    ],
+                    "span": {
+                      "end": 16,
+                      "start": 0,
+                    },
+                    "type": "FunctionCall",
+                  },
+                  "comparator": null,
+                  "span": {
+                    "end": 16,
+                    "start": 0,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 16,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 16,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 16,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 16,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: parse > simple restriction 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 10,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": {
+                    "fields": [],
+                    "span": {
+                      "end": 10,
+                      "start": 9,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 10,
+                        "start": 9,
+                      },
+                      "token": {
+                        "end": 10,
+                        "kind": 15,
+                        "start": 9,
+                        "value": "5",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 5,
+                      "start": 0,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 5,
+                        "start": 0,
+                      },
+                      "token": {
+                        "end": 5,
+                        "kind": 15,
+                        "start": 0,
+                        "value": "power",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": 8,
+                  "span": {
+                    "end": 10,
+                    "start": 0,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 10,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 10,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 10,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 10,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: parse > string comparison 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 15,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": {
+                    "fields": [],
+                    "span": {
+                      "end": 15,
+                      "start": 7,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 15,
+                        "start": 7,
+                      },
+                      "token": {
+                        "end": 15,
+                        "kind": 16,
+                        "start": 7,
+                        "value": "Madoka",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 4,
+                      "start": 0,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 4,
+                        "start": 0,
+                      },
+                      "token": {
+                        "end": 4,
+                        "kind": 15,
+                        "start": 0,
+                        "value": "name",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": 3,
+                  "span": {
+                    "end": 15,
+                    "start": 0,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 15,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 15,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 15,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 15,
+    "start": 0,
+  },
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: tokenize > complex expression 1`] = `
+[
+  {
+    "end": 4,
+    "kind": 15,
+    "start": 0,
+    "value": "name",
+  },
+  {
+    "end": 6,
+    "kind": 3,
+    "start": 5,
+    "value": "=",
+  },
+  {
+    "end": 15,
+    "kind": 16,
+    "start": 7,
+    "value": "Madoka",
+  },
+  {
+    "end": 19,
+    "kind": 0,
+    "start": 16,
+    "value": "AND",
+  },
+  {
+    "end": 21,
+    "kind": 10,
+    "start": 20,
+    "value": "(",
+  },
+  {
+    "end": 26,
+    "kind": 15,
+    "start": 21,
+    "value": "power",
+  },
+  {
+    "end": 28,
+    "kind": 7,
+    "start": 27,
+    "value": ">",
+  },
+  {
+    "end": 30,
+    "kind": 15,
+    "start": 29,
+    "value": "5",
+  },
+  {
+    "end": 33,
+    "kind": 1,
+    "start": 31,
+    "value": "OR",
+  },
+  {
+    "end": 40,
+    "kind": 15,
+    "start": 34,
+    "value": "status",
+  },
+  {
+    "end": 41,
+    "kind": 9,
+    "start": 40,
+    "value": ":",
+  },
+  {
+    "end": 47,
+    "kind": 15,
+    "start": 41,
+    "value": "active",
+  },
+  {
+    "end": 48,
+    "kind": 11,
+    "start": 47,
+    "value": ")",
+  },
+  {
+    "end": 48,
+    "kind": 17,
+    "start": 48,
+    "value": "",
+  },
+]
+`;
+
+exports[`snapshot: tokenize > empty input 1`] = `
+[
+  {
+    "end": 0,
+    "kind": 17,
+    "start": 0,
+    "value": "",
+  },
+]
+`;
+
+exports[`snapshot: tokenize > function call 1`] = `
+[
+  {
+    "end": 5,
+    "kind": 15,
+    "start": 0,
+    "value": "regex",
+  },
+  {
+    "end": 6,
+    "kind": 10,
+    "start": 5,
+    "value": "(",
+  },
+  {
+    "end": 7,
+    "kind": 15,
+    "start": 6,
+    "value": "m",
+  },
+  {
+    "end": 8,
+    "kind": 12,
+    "start": 7,
+    "value": ".",
+  },
+  {
+    "end": 11,
+    "kind": 15,
+    "start": 8,
+    "value": "key",
+  },
+  {
+    "end": 12,
+    "kind": 13,
+    "start": 11,
+    "value": ",",
+  },
+  {
+    "end": 23,
+    "kind": 16,
+    "start": 13,
+    "value": "^prod.*$",
+  },
+  {
+    "end": 24,
+    "kind": 11,
+    "start": 23,
+    "value": ")",
+  },
+  {
+    "end": 24,
+    "kind": 17,
+    "start": 24,
+    "value": "",
+  },
+]
+`;
+
+exports[`snapshot: tokenize > keywords as function names 1`] = `
+[
+  {
+    "end": 3,
+    "kind": 15,
+    "start": 0,
+    "value": "NOT",
+  },
+  {
+    "end": 4,
+    "kind": 10,
+    "start": 3,
+    "value": "(",
+  },
+  {
+    "end": 5,
+    "kind": 11,
+    "start": 4,
+    "value": ")",
+  },
+  {
+    "end": 9,
+    "kind": 15,
+    "start": 6,
+    "value": "AND",
+  },
+  {
+    "end": 10,
+    "kind": 10,
+    "start": 9,
+    "value": "(",
+  },
+  {
+    "end": 11,
+    "kind": 11,
+    "start": 10,
+    "value": ")",
+  },
+  {
+    "end": 14,
+    "kind": 15,
+    "start": 12,
+    "value": "OR",
+  },
+  {
+    "end": 15,
+    "kind": 12,
+    "start": 14,
+    "value": ".",
+  },
+  {
+    "end": 20,
+    "kind": 15,
+    "start": 15,
+    "value": "check",
+  },
+  {
+    "end": 21,
+    "kind": 10,
+    "start": 20,
+    "value": "(",
+  },
+  {
+    "end": 22,
+    "kind": 11,
+    "start": 21,
+    "value": ")",
+  },
+  {
+    "end": 22,
+    "kind": 17,
+    "start": 22,
+    "value": "",
+  },
+]
+`;
+
+exports[`snapshot: tokenize > negation and has 1`] = `
+[
+  {
+    "end": 3,
+    "kind": 2,
+    "start": 0,
+    "value": "NOT",
+  },
+  {
+    "end": 8,
+    "kind": 15,
+    "start": 4,
+    "value": "tags",
+  },
+  {
+    "end": 9,
+    "kind": 9,
+    "start": 8,
+    "value": ":",
+  },
+  {
+    "end": 10,
+    "kind": 15,
+    "start": 9,
+    "value": "*",
+  },
+  {
+    "end": 14,
+    "kind": 0,
+    "start": 11,
+    "value": "AND",
+  },
+  {
+    "end": 16,
+    "kind": 14,
+    "start": 15,
+    "value": "-",
+  },
+  {
+    "end": 20,
+    "kind": 15,
+    "start": 16,
+    "value": "file",
+  },
+  {
+    "end": 21,
+    "kind": 9,
+    "start": 20,
+    "value": ":",
+  },
+  {
+    "end": 28,
+    "kind": 16,
+    "start": 21,
+    "value": ".java",
+  },
+  {
+    "end": 28,
+    "kind": 17,
+    "start": 28,
+    "value": "",
+  },
+]
+`;
+
+exports[`snapshot: tokenize > simple restriction 1`] = `
+[
+  {
+    "end": 5,
+    "kind": 15,
+    "start": 0,
+    "value": "power",
+  },
+  {
+    "end": 8,
+    "kind": 8,
+    "start": 6,
+    "value": ">=",
+  },
+  {
+    "end": 10,
+    "kind": 15,
+    "start": 9,
+    "value": "5",
+  },
+  {
+    "end": 10,
+    "kind": 17,
+    "start": 10,
+    "value": "",
+  },
+]
+`;
+
+exports[`snapshot: transform > AND expression 1`] = `
+{
+  "children": [
+    {
+      "arg": {
+        "quoted": false,
+        "span": {
+          "end": 5,
+          "start": 4,
+        },
+        "type": "value",
+        "value": "1",
+      },
+      "comparable": {
+        "path": [
+          "a",
+        ],
+        "span": {
+          "end": 1,
+          "start": 0,
+        },
+        "type": "member",
+      },
+      "comparator": "=",
+      "span": {
+        "end": 5,
+        "start": 0,
+      },
+      "type": "restriction",
+    },
+    {
+      "arg": {
+        "quoted": false,
+        "span": {
+          "end": 15,
+          "start": 14,
+        },
+        "type": "value",
+        "value": "2",
+      },
+      "comparable": {
+        "path": [
+          "b",
+        ],
+        "span": {
+          "end": 11,
+          "start": 10,
+        },
+        "type": "member",
+      },
+      "comparator": "=",
+      "span": {
+        "end": 15,
+        "start": 10,
+      },
+      "type": "restriction",
+    },
+  ],
+  "span": {
+    "end": 15,
+    "start": 0,
+  },
+  "type": "and",
+}
+`;
+
+exports[`snapshot: transform > NOT expression 1`] = `
+{
+  "child": {
+    "arg": {
+      "quoted": false,
+      "span": {
+        "end": 9,
+        "start": 8,
+      },
+      "type": "value",
+      "value": "1",
+    },
+    "comparable": {
+      "path": [
+        "a",
+      ],
+      "span": {
+        "end": 5,
+        "start": 4,
+      },
+      "type": "member",
+    },
+    "comparator": "=",
+    "span": {
+      "end": 9,
+      "start": 4,
+    },
+    "type": "restriction",
+  },
+  "span": {
+    "end": 9,
+    "start": 0,
+  },
+  "type": "not",
+}
+`;
+
+exports[`snapshot: transform > OR expression 1`] = `
+{
+  "children": [
+    {
+      "arg": {
+        "quoted": false,
+        "span": {
+          "end": 5,
+          "start": 4,
+        },
+        "type": "value",
+        "value": "1",
+      },
+      "comparable": {
+        "path": [
+          "a",
+        ],
+        "span": {
+          "end": 1,
+          "start": 0,
+        },
+        "type": "member",
+      },
+      "comparator": "=",
+      "span": {
+        "end": 5,
+        "start": 0,
+      },
+      "type": "restriction",
+    },
+    {
+      "arg": {
+        "quoted": false,
+        "span": {
+          "end": 14,
+          "start": 13,
+        },
+        "type": "value",
+        "value": "2",
+      },
+      "comparable": {
+        "path": [
+          "b",
+        ],
+        "span": {
+          "end": 10,
+          "start": 9,
+        },
+        "type": "member",
+      },
+      "comparator": "=",
+      "span": {
+        "end": 14,
+        "start": 9,
+      },
+      "type": "restriction",
+    },
+  ],
+  "span": {
+    "end": 14,
+    "start": 0,
+  },
+  "type": "or",
+}
+`;
+
+exports[`snapshot: transform > bare literal 1`] = `
+{
+  "span": {
+    "end": 10,
+    "start": 0,
+  },
+  "type": "global",
+  "value": {
+    "quoted": false,
+    "span": {
+      "end": 10,
+      "start": 0,
+    },
+    "type": "value",
+    "value": "mitakihara",
+  },
+}
+`;
+
+exports[`snapshot: transform > complex expression 1`] = `
+{
+  "children": [
+    {
+      "arg": {
+        "quoted": false,
+        "span": {
+          "end": 10,
+          "start": 9,
+        },
+        "type": "value",
+        "value": "5",
+      },
+      "comparable": {
+        "path": [
+          "power",
+        ],
+        "span": {
+          "end": 5,
+          "start": 0,
+        },
+        "type": "member",
+      },
+      "comparator": ">=",
+      "span": {
+        "end": 10,
+        "start": 0,
+      },
+      "type": "restriction",
+    },
+    {
+      "children": [
+        {
+          "arg": {
+            "quoted": true,
+            "span": {
+              "end": 31,
+              "start": 23,
+            },
+            "type": "value",
+            "value": "Madoka",
+          },
+          "comparable": {
+            "path": [
+              "name",
+            ],
+            "span": {
+              "end": 20,
+              "start": 16,
+            },
+            "type": "member",
+          },
+          "comparator": "=",
+          "span": {
+            "end": 31,
+            "start": 16,
+          },
+          "type": "restriction",
+        },
+        {
+          "arg": {
+            "quoted": false,
+            "span": {
+              "end": 48,
+              "start": 42,
+            },
+            "type": "value",
+            "value": "active",
+          },
+          "comparable": {
+            "path": [
+              "status",
+            ],
+            "span": {
+              "end": 41,
+              "start": 35,
+            },
+            "type": "member",
+          },
+          "comparator": ":",
+          "span": {
+            "end": 48,
+            "start": 35,
+          },
+          "type": "restriction",
+        },
+      ],
+      "span": {
+        "end": 48,
+        "start": 16,
+      },
+      "type": "or",
+    },
+    {
+      "child": {
+        "arg": {
+          "quoted": false,
+          "span": {
+            "end": 73,
+            "start": 69,
+          },
+          "type": "value",
+          "value": "true",
+        },
+        "comparable": {
+          "path": [
+            "disabled",
+          ],
+          "span": {
+            "end": 66,
+            "start": 58,
+          },
+          "type": "member",
+        },
+        "comparator": "=",
+        "span": {
+          "end": 73,
+          "start": 58,
+        },
+        "type": "restriction",
+      },
+      "span": {
+        "end": 73,
+        "start": 54,
+      },
+      "type": "not",
+    },
+  ],
+  "span": {
+    "end": 73,
+    "start": 0,
+  },
+  "type": "and",
+}
+`;
+
+exports[`snapshot: transform > dotted non-numeric arg stays as member 1`] = `
+{
+  "arg": {
+    "path": [
+      "b",
+      "c",
+    ],
+    "span": {
+      "end": 7,
+      "start": 4,
+    },
+    "type": "member",
+  },
+  "comparable": {
+    "path": [
+      "a",
+    ],
+    "span": {
+      "end": 1,
+      "start": 0,
+    },
+    "type": "member",
+  },
+  "comparator": "=",
+  "span": {
+    "end": 7,
+    "start": 0,
+  },
+  "type": "restriction",
+}
+`;
+
+exports[`snapshot: transform > dotted numeric arg collapsed to value 1`] = `
+{
+  "arg": {
+    "quoted": false,
+    "span": {
+      "end": 7,
+      "start": 4,
+    },
+    "type": "value",
+    "value": "2.5",
+  },
+  "comparable": {
+    "path": [
+      "a",
+    ],
+    "span": {
+      "end": 1,
+      "start": 0,
+    },
+    "type": "member",
+  },
+  "comparator": "=",
+  "span": {
+    "end": 7,
+    "start": 0,
+  },
+  "type": "restriction",
+}
+`;
+
+exports[`snapshot: transform > empty filter 1`] = `null`;
+
+exports[`snapshot: transform > field traversal becomes path array 1`] = `
+{
+  "arg": {
+    "quoted": false,
+    "span": {
+      "end": 9,
+      "start": 8,
+    },
+    "type": "value",
+    "value": "x",
+  },
+  "comparable": {
+    "path": [
+      "a",
+      "b",
+      "c",
+    ],
+    "span": {
+      "end": 5,
+      "start": 0,
+    },
+    "type": "member",
+  },
+  "comparator": "=",
+  "span": {
+    "end": 9,
+    "start": 0,
+  },
+  "type": "restriction",
+}
+`;
+
+exports[`snapshot: transform > function as LHS of comparison 1`] = `
+{
+  "arg": {
+    "quoted": false,
+    "span": {
+      "end": 9,
+      "start": 7,
+    },
+    "type": "value",
+    "value": "42",
+  },
+  "comparable": {
+    "args": [],
+    "name": [
+      "fn",
+    ],
+    "qualifiedName": "fn",
+    "span": {
+      "end": 4,
+      "start": 0,
+    },
+    "type": "function",
+  },
+  "comparator": "=",
+  "span": {
+    "end": 9,
+    "start": 0,
+  },
+  "type": "restriction",
+}
+`;
+
+exports[`snapshot: transform > function call 1`] = `
+{
+  "span": {
+    "end": 22,
+    "start": 0,
+  },
+  "type": "global",
+  "value": {
+    "args": [
+      {
+        "path": [
+          "m",
+          "key",
+        ],
+        "span": {
+          "end": 11,
+          "start": 6,
+        },
+        "type": "member",
+      },
+      {
+        "quoted": true,
+        "span": {
+          "end": 21,
+          "start": 13,
+        },
+        "type": "value",
+        "value": "^prod$",
+      },
+    ],
+    "name": [
+      "regex",
+    ],
+    "qualifiedName": "regex",
+    "span": {
+      "end": 22,
+      "start": 0,
+    },
+    "type": "function",
+  },
+}
+`;
+
+exports[`snapshot: transform > implicit AND flattened 1`] = `
+{
+  "children": [
+    {
+      "span": {
+        "end": 1,
+        "start": 0,
+      },
+      "type": "global",
+      "value": {
+        "quoted": false,
+        "span": {
+          "end": 1,
+          "start": 0,
+        },
+        "type": "value",
+        "value": "a",
+      },
+    },
+    {
+      "span": {
+        "end": 3,
+        "start": 2,
+      },
+      "type": "global",
+      "value": {
+        "quoted": false,
+        "span": {
+          "end": 3,
+          "start": 2,
+        },
+        "type": "value",
+        "value": "b",
+      },
+    },
+    {
+      "span": {
+        "end": 9,
+        "start": 8,
+      },
+      "type": "global",
+      "value": {
+        "quoted": false,
+        "span": {
+          "end": 9,
+          "start": 8,
+        },
+        "type": "value",
+        "value": "c",
+      },
+    },
+    {
+      "span": {
+        "end": 11,
+        "start": 10,
+      },
+      "type": "global",
+      "value": {
+        "quoted": false,
+        "span": {
+          "end": 11,
+          "start": 10,
+        },
+        "type": "value",
+        "value": "d",
+      },
+    },
+  ],
+  "span": {
+    "end": 11,
+    "start": 0,
+  },
+  "type": "and",
+}
+`;
+
+exports[`snapshot: transform > keyword function name 1`] = `
+{
+  "span": {
+    "end": 5,
+    "start": 0,
+  },
+  "type": "global",
+  "value": {
+    "args": [],
+    "name": [
+      "NOT",
+    ],
+    "qualifiedName": "NOT",
+    "span": {
+      "end": 5,
+      "start": 0,
+    },
+    "type": "function",
+  },
+}
+`;
+
+exports[`snapshot: transform > keywords as field names 1`] = `
+{
+  "arg": {
+    "quoted": false,
+    "span": {
+      "end": 12,
+      "start": 11,
+    },
+    "type": "value",
+    "value": "1",
+  },
+  "comparable": {
+    "path": [
+      "a",
+      "OR",
+      "NOT",
+    ],
+    "span": {
+      "end": 8,
+      "start": 0,
+    },
+    "type": "member",
+  },
+  "comparator": "=",
+  "span": {
+    "end": 12,
+    "start": 0,
+  },
+  "type": "restriction",
+}
+`;
+
+exports[`snapshot: transform > simple restriction 1`] = `
+{
+  "arg": {
+    "quoted": false,
+    "span": {
+      "end": 10,
+      "start": 9,
+    },
+    "type": "value",
+    "value": "5",
+  },
+  "comparable": {
+    "path": [
+      "power",
+    ],
+    "span": {
+      "end": 5,
+      "start": 0,
+    },
+    "type": "member",
+  },
+  "comparator": ">=",
+  "span": {
+    "end": 10,
+    "start": 0,
+  },
+  "type": "restriction",
+}
+`;
