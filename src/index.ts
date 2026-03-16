@@ -1,0 +1,68 @@
+export { type Span, type Token, TokenKind, type ComparatorKind, isComparatorKind } from "./types";
+export { tokenize } from "./lexer";
+export {
+  FilterError,
+  LexerError,
+  UnexpectedCharacterError,
+  UnterminatedStringError,
+  ParserError,
+  UnexpectedTokenError,
+  ExpectedExpressionError,
+  ExpectedValueError,
+  ExpectedIdentifierError,
+  EmptyExpressionError,
+  UnclosedDelimiterError,
+  InvalidFunctionNameError,
+  InvalidNegationError,
+  DepthLimitError,
+  InputLengthError,
+  EvaluateError,
+  UnknownFunctionError,
+  UnsupportedVersionError,
+  UnknownNodeTypeError,
+  InvalidFieldTypeError,
+  InvariantError,
+} from "./errors";
+export {
+  parse,
+  type ParseOptions,
+  type ArgNode,
+  type CSTNode,
+  type ComparableNode,
+  type CompositeNode,
+  type ExpressionNode,
+  type FactorNode,
+  type FilterNode,
+  type FunctionCallNode,
+  type MemberNode,
+  type RestrictionNode,
+  type SequenceNode,
+  type SimpleNode,
+  type TermNode,
+  type ValueNode,
+} from "./parser";
+export {
+  transform,
+  type AndNode,
+  type ASTFunctionNode,
+  type ASTMemberNode,
+  type ASTNode,
+  type ASTRestrictionNode,
+  type ASTValueNode,
+  type Comparator,
+  type ComparisonOperator,
+  type GlobalNode,
+  type NotNode,
+  type OrNode,
+} from "./transform";
+export { evaluate, type EvaluateOptions } from "./evaluate";
+export { evaluateAsync, type AsyncEvaluateOptions } from "./evaluate-async";
+export {
+  filter,
+  filterAsync,
+  compile,
+  CompiledFilter,
+  type SerializedFilter,
+  type FilterOptions,
+  type AsyncFilterOptions,
+} from "./filter";
