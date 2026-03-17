@@ -1,6 +1,6 @@
 {
   "name": "onesixty",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "AIP-160 filtering language parser and evaluator for TypeScript",
   "keywords": [
     "aip-160",
