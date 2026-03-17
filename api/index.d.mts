@@ -88,23 +88,11 @@ type ComparatorKind = TokenKind.Equals | TokenKind.NotEquals | TokenKind.LessTha
  */
 declare function isComparatorKind(kind: TokenKind): kind is ComparatorKind;
 //#endregion
-//#region src/lexer.d.ts
-/**
- * Tokenize an AIP-160 filter expression into a stream of tokens.
- *
- * @param input - The raw filter expression string.
- * @returns An array of tokens, always terminated by an `EOF` token.
- *
- * @example
- * ```ts
- * tokenize('age >= 21 AND name = "Alice"');
- * // [Text("age"), GreaterEquals(">="), Text("21"), And("AND"),
- * //  Text("name"), Equals("="), String("Alice"), EOF]
- * ```
- */
-declare function tokenize(input: string): Token[];
-//#endregion
 //#region src/errors.d.ts
+/**
+ * Thrown when an internal assumption is violated. Indicates a bug in onesixty,
+ * not invalid user input. If you encounter this error, please report it.
+ */
 declare class InvariantError extends Error {
   constructor(message: string);
 }
@@ -304,9 +292,58 @@ declare class InvalidFieldTypeError extends FilterError {
   constructor(path: string, expected: "string" | "boolean" | "array" | "object" | "span" | "comparator");
 }
 //#endregion
+//#region src/lexer.d.ts
+/**
+ * Result of tokenizing with `tolerant: true`.
+ */
+interface TokenizeResult {
+  /** Token stream, always terminated by an `EOF` token. */
+  tokens: Token[];
+  /** Lexer errors collected during tokenization. Empty on success. */
+  errors: LexerError[];
+}
+/**
+ * Tokenize an AIP-160 filter expression into a stream of tokens.
+ *
+ * @param input - The raw filter expression string.
+ * @returns An array of tokens, always terminated by an `EOF` token.
+ *
+ * @example
+ * ```ts
+ * tokenize('age >= 21 AND name = "Alice"');
+ * // [Text("age"), GreaterEquals(">="), Text("21"), And("AND"),
+ * //  Text("name"), Equals("="), String("Alice"), EOF]
+ * ```
+ */
+declare function tokenize(input: string): Token[];
+/**
+ * Tokenize in tolerant mode: collect errors instead of throwing.
+ *
+ * @param input - The raw filter expression string.
+ * @param options - Must include `tolerant: true`.
+ * @returns A {@link TokenizeResult} with the token stream and any errors.
+ */
+declare function tokenize(input: string, options: {
+  tolerant: true;
+}): TokenizeResult;
+//#endregion
 //#region src/parser.d.ts
 interface NodeBase {
   span: Span;
+}
+/**
+ * Resolves to {@link ErrorNode} when `T` is `true`, or `never` when `false`.
+ *
+ * Used throughout the CST interfaces so that strict-mode types
+ * (`T = false`, the default) never include `ErrorNode` in their unions,
+ * while tolerant-mode types (`T = true`) do.
+ */
+type MaybeError<T extends boolean> = T extends true ? ErrorNode : never;
+/** @internal Base for {@link FilterNode}; use `FilterNode` in consumer code. */
+interface FilterNodeBase<T extends boolean = false> extends NodeBase {
+  type: "Filter";
+  /** The top-level expression, or `null` for empty filters. */
+  expression: ExpressionNode<T> | MaybeError<T> | null;
 }
 /**
  * Root node of the concrete syntax tree.
@@ -314,31 +351,32 @@ interface NodeBase {
  * Corresponds to the EBNF production `filter = [expression]`.
  * An empty or whitespace-only input produces a `FilterNode` with
  * `expression: null`.
+ *
+ * In tolerant mode (`FilterNode<true>`), an additional `trailing` field
+ * holds an {@link ErrorNode} wrapping any tokens after the expression.
  */
-interface FilterNode extends NodeBase {
-  type: "Filter";
-  /** The top-level expression, or `null` for empty filters. */
-  expression: ExpressionNode | null;
-}
+type FilterNode<T extends boolean = false> = FilterNodeBase<T> & (T extends true ? {
+  trailing: ErrorNode | null;
+} : unknown);
 /**
  * A sequence of AND-joined sequences.
  *
  * Corresponds to `expression = sequence {WS AND WS sequence}`.
  */
-interface ExpressionNode extends NodeBase {
+interface ExpressionNode<T extends boolean = false> extends NodeBase {
   type: "Expression";
   /** One or more sequences joined by explicit `AND`. */
-  sequences: SequenceNode[];
+  sequences: SequenceNode<T>[];
 }
 /**
  * A run of implicitly AND-joined factors (whitespace-separated).
  *
  * Corresponds to `sequence = factor {WS factor}`.
  */
-interface SequenceNode extends NodeBase {
+interface SequenceNode<T extends boolean = false> extends NodeBase {
   type: "Sequence";
   /** One or more factors separated by whitespace (implicit AND). */
-  factors: FactorNode[];
+  factors: FactorNode<T>[];
 }
 /**
  * A group of OR-joined terms.
@@ -346,25 +384,25 @@ interface SequenceNode extends NodeBase {
  * Corresponds to `factor = term {WS OR WS term}`.
  * OR binds tighter than AND in AIP-160.
  */
-interface FactorNode extends NodeBase {
+interface FactorNode<T extends boolean = false> extends NodeBase {
   type: "Factor";
   /** One or more terms joined by explicit `OR`. */
-  terms: TermNode[];
+  terms: TermNode<T>[];
 }
 /**
  * An optionally negated simple expression.
  *
  * Corresponds to `term = [NOT WS | "-"] simple`.
  */
-interface TermNode extends NodeBase {
+interface TermNode<T extends boolean = false> extends NodeBase {
   type: "Term";
   /** Whether the term is preceded by `NOT` or `-`. */
   negated: boolean;
   /** The inner expression (restriction or composite). */
-  simple: SimpleNode;
+  simple: SimpleNode<T> | MaybeError<T>;
 }
 /** A term's inner expression: a {@link RestrictionNode} or a {@link CompositeNode}. */
-type SimpleNode = RestrictionNode | CompositeNode;
+type SimpleNode<T extends boolean = false> = RestrictionNode<T> | CompositeNode<T>;
 /**
  * A field restriction or bare value (global search).
  *
@@ -372,17 +410,24 @@ type SimpleNode = RestrictionNode | CompositeNode;
  * When `comparator` and `arg` are `null`, this is a bare value
  * used for global text search.
  */
-interface RestrictionNode extends NodeBase {
+interface RestrictionNode<T extends boolean = false> extends NodeBase {
   type: "Restriction";
   /** The left-hand side: a field path or function call. */
-  comparable: ComparableNode;
+  comparable: ComparableNode<T>;
   /** The comparison operator, or `null` for bare values (global restrictions). */
   comparator: ComparatorKind | null;
-  /** The right-hand side value, or `null` for bare values. */
-  arg: ArgNode | null;
+  /**
+   * The right-hand side value, or `null` for bare values.
+   *
+   * In tolerant mode, insertion-based recovery may synthesize a zero-width
+   * placeholder {@link MemberNode} (empty `value.token.value`, `span.start === span.end`)
+   * when the value is missing (e.g. `a = AND ...`). The corresponding error is
+   * recorded in {@link ParseResult.errors}.
+   */
+  arg: ArgNode<T> | MaybeError<T> | null;
 }
 /** The left-hand side of a restriction: a {@link MemberNode} or {@link FunctionCallNode}. */
-type ComparableNode = MemberNode | FunctionCallNode;
+type ComparableNode<T extends boolean = false> = MemberNode | FunctionCallNode<T>;
 /**
  * A field path (e.g. `a.b.c`).
  *
@@ -401,24 +446,31 @@ interface MemberNode extends NodeBase {
  * Corresponds to `function = name "(" [argList] ")"`.
  * Only produced when `(` is immediately adjacent to the name (no whitespace).
  */
-interface FunctionCallNode extends NodeBase {
+interface FunctionCallNode<T extends boolean = false> extends NodeBase {
   type: "FunctionCall";
   /** The function name segments (e.g. `["math", "abs"]` for `math.abs()`). */
   name: ValueNode[];
-  /** The function arguments (may be empty). */
-  args: ArgNode[];
+  /**
+   * The function arguments (may be empty).
+   *
+   * In tolerant mode, insertion-based recovery may synthesize a zero-width
+   * placeholder {@link MemberNode} (empty `value.token.value`, `span.start === span.end`)
+   * when an argument is missing (e.g. `fn(a,)`). The corresponding error is
+   * recorded in {@link ParseResult.errors}.
+   */
+  args: (ArgNode<T> | MaybeError<T>)[];
 }
 /** A function or comparator argument: a {@link ComparableNode} or {@link CompositeNode}. */
-type ArgNode = ComparableNode | CompositeNode;
+type ArgNode<T extends boolean = false> = ComparableNode<T> | CompositeNode<T>;
 /**
  * A parenthesized sub-expression (e.g. `(a OR b)`).
  *
  * Corresponds to `composite = "(" expression ")"`.
  */
-interface CompositeNode extends NodeBase {
+interface CompositeNode<T extends boolean = false> extends NodeBase {
   type: "Composite";
   /** The enclosed expression. */
-  expression: ExpressionNode;
+  expression: ExpressionNode<T> | MaybeError<T>;
 }
 /**
  * A leaf text or string literal value.
@@ -431,11 +483,28 @@ interface ValueNode extends NodeBase {
   token: Token;
 }
 /**
+ * A placeholder node representing invalid syntax that the parser
+ * recovered from.
+ *
+ * Only present in the CST when parsing with `tolerant: true`.
+ * Contains the original error and any tokens that were skipped
+ * during recovery.
+ */
+interface ErrorNode extends NodeBase {
+  type: "Error";
+  /** The error that was recovered from. */
+  error: ParserError | LexerError;
+  /** Tokens that were skipped during recovery (may be empty). */
+  skipped: Token[];
+  /** Position where the parser expected something. For editor diagnostics. */
+  expectedAt: Span;
+}
+/**
  * Discriminated union of all concrete syntax tree node types.
  *
  * Use the `type` field to narrow to a specific node interface.
  */
-type CSTNode = FilterNode | ExpressionNode | SequenceNode | FactorNode | TermNode | RestrictionNode | CompositeNode | MemberNode | FunctionCallNode | ValueNode;
+type CSTNode<T extends boolean = false> = FilterNode<T> | ExpressionNode<T> | SequenceNode<T> | FactorNode<T> | TermNode<T> | RestrictionNode<T> | CompositeNode<T> | MemberNode | FunctionCallNode<T> | ValueNode | MaybeError<T>;
 /**
  * Options for the {@link parse} function.
  *
@@ -453,6 +522,35 @@ interface ParseOptions {
    * @default 8192
    */
   maxLength?: number;
+  /**
+   * When `true`, collect errors and return a best-effort CST instead of
+   * throwing on the first error. The return type changes to {@link ParseResult}.
+   * @default false
+   */
+  tolerant?: boolean;
+  /**
+   * Maximum number of errors to collect before stopping recovery.
+   * Only meaningful when `tolerant` is `true`. Lexer errors count toward
+   * this budget. The actual count may slightly exceed this limit when
+   * errors occur during stack unwinding.
+   * @default 20
+   */
+  maxErrors?: number;
+}
+/**
+ * Result of parsing with `tolerant: true`.
+ *
+ * The CST uses `FilterNode<true>` so that {@link ErrorNode} appears in the
+ * type unions. Use {@link toCleanTree} to narrow to `FilterNode` (strict)
+ * before passing to {@link transform}.
+ */
+interface ParseResult {
+  /** The CST root. Always returned, even when errors were found. */
+  cst: FilterNode<true>;
+  /** All errors collected during lexing and parsing. Empty on success. */
+  errors: (LexerError | ParserError)[];
+  /** `true` when no errors were found during lexing or parsing. */
+  ok: boolean;
 }
 /**
  * Parse an AIP-160 filter expression into a concrete syntax tree (CST).
@@ -471,7 +569,56 @@ interface ParseOptions {
  * const cst = parse('status = "active" AND age >= 21');
  * ```
  */
-declare function parse(input: string, options?: ParseOptions): FilterNode;
+declare function parse(input: string, options?: ParseOptions & {
+  tolerant?: false;
+}): FilterNode;
+/**
+ * Parse in tolerant mode: collect errors instead of throwing.
+ *
+ * Returns a {@link ParseResult} containing the best-effort CST and all
+ * errors found. The CST may contain {@link ErrorNode}s as placeholders
+ * for invalid syntax.
+ *
+ * @param input - The raw filter expression string.
+ * @param options - Must include `tolerant: true`.
+ * @returns A {@link ParseResult} with the CST and any errors.
+ *
+ * @example
+ * ```ts
+ * const { cst, errors, ok } = parse('a AND AND b', { tolerant: true });
+ * if (!ok) {
+ *   for (const error of errors) console.log(error.description);
+ * }
+ * ```
+ */
+declare function parse(input: string, options: ParseOptions & {
+  tolerant: true;
+}): ParseResult;
+/**
+ * Walk a CST and return `true` if any node is an {@link ErrorNode}.
+ *
+ * Useful for checking whether a tolerant parse produced a clean tree
+ * before passing it to {@link transform}.
+ */
+declare function hasErrorNodes(node: CSTNode<true>): boolean;
+/**
+ * Narrow a tolerant parse result to a strict `FilterNode` if it contains no errors.
+ *
+ * Returns the narrowed `FilterNode` when the result is error-free,
+ * or `null` if it has any errors (including insertion-recovery placeholders
+ * that don't appear as {@link ErrorNode}s in the tree). The returned value
+ * is safe to pass to {@link transform}.
+ *
+ * @example
+ * ```ts
+ * const result = parse(input, { tolerant: true });
+ * const clean = toCleanTree(result);
+ * if (clean) {
+ *   const ast = transform(clean);
+ * }
+ * ```
+ */
+declare function toCleanTree(result: ParseResult): FilterNode | null;
 //#endregion
 //#region src/transform.d.ts
 /**
@@ -907,4 +1054,4 @@ declare class CompiledFilter {
   static fromSerialized(data: SerializedFilter, options?: EvaluateOptions): CompiledFilter;
 }
 //#endregion
-export { type ASTFunctionNode, type ASTMemberNode, type ASTNode, type ASTRestrictionNode, type ASTValueNode, type AndNode, type ArgNode, type AsyncEvaluateOptions, type AsyncFilterOptions, type CSTNode, type ComparableNode, type Comparator, type ComparatorKind, type ComparisonOperator, CompiledFilter, type CompositeNode, DepthLimitError, EmptyExpressionError, EvaluateError, type EvaluateOptions, ExpectedExpressionError, ExpectedIdentifierError, ExpectedValueError, type ExpressionNode, type FactorNode, FilterError, type FilterNode, type FilterOptions, type FunctionCallNode, type GlobalNode, InputLengthError, InvalidFieldTypeError, InvalidFunctionNameError, InvalidNegationError, InvariantError, LexerError, type MemberNode, type NotNode, type OrNode, type ParseOptions, ParserError, type RestrictionNode, type SequenceNode, type SerializedFilter, type SimpleNode, type Span, type TermNode, type Token, TokenKind, UnclosedDelimiterError, UnexpectedCharacterError, UnexpectedTokenError, UnknownFunctionError, UnknownNodeTypeError, UnsupportedVersionError, UnterminatedStringError, type ValueNode, compile, evaluate, evaluateAsync, filter, filterAsync, isComparatorKind, parse, tokenize, transform };
+export { type ASTFunctionNode, type ASTMemberNode, type ASTNode, type ASTRestrictionNode, type ASTValueNode, type AndNode, type ArgNode, type AsyncEvaluateOptions, type AsyncFilterOptions, type CSTNode, type ComparableNode, type Comparator, type ComparatorKind, type ComparisonOperator, CompiledFilter, type CompositeNode, DepthLimitError, EmptyExpressionError, type ErrorNode, EvaluateError, type EvaluateOptions, ExpectedExpressionError, ExpectedIdentifierError, ExpectedValueError, type ExpressionNode, type FactorNode, FilterError, type FilterNode, type FilterOptions, type FunctionCallNode, type GlobalNode, InputLengthError, InvalidFieldTypeError, InvalidFunctionNameError, InvalidNegationError, InvariantError, LexerError, type MaybeError, type MemberNode, type NotNode, type OrNode, type ParseOptions, type ParseResult, ParserError, type RestrictionNode, type SequenceNode, type SerializedFilter, type SimpleNode, type Span, type TermNode, type Token, TokenKind, type TokenizeResult, UnclosedDelimiterError, UnexpectedCharacterError, UnexpectedTokenError, UnknownFunctionError, UnknownNodeTypeError, UnsupportedVersionError, UnterminatedStringError, type ValueNode, compile, evaluate, evaluateAsync, filter, filterAsync, hasErrorNodes, isComparatorKind, parse, toCleanTree, tokenize, transform };
