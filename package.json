@@ -1,6 +1,6 @@
 {
   "name": "onesixty",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "AIP-160 filtering language parser and evaluator for TypeScript",
   "keywords": [
     "aip-160",
@@ -13,6 +13,10 @@
     "parser",
     "query"
   ],
+  "homepage": "https://github.com/repository/onesixty#readme",
+  "bugs": {
+    "url": "https://github.com/repository/onesixty/issues"
+  },
   "license": "Apache-2.0",
   "author": "lily <oss@colonthr.ee>",
   "repository": {

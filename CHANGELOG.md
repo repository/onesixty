@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+Package metadata and CI fixes.
+
 ## 0.1.0
 
 Initial release.
