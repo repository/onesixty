@@ -1,9 +1,13 @@
 import type { Span, Token } from "./types";
 import { TokenKind, isComparatorKind } from "./types";
 
+/**
+ * Thrown when an internal assumption is violated. Indicates a bug in onesixty,
+ * not invalid user input. If you encounter this error, please report it.
+ */
 export class InvariantError extends Error {
   constructor(message: string) {
-    super(`onesixty internal error: ${message}. This is a bug. Please report it.`);
+    super(`onesixty internal error: ${message}. This is a bug, please report it.`);
   }
 }
 

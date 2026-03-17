@@ -150,7 +150,6 @@ function evaluateRestriction(
 
   const fieldValue = resolve(target, fieldPath);
 
-  // Unset field -> skip (non-match), even for !=
   if (fieldValue == null) return false;
 
   return compare(fieldValue, node.comparator, argValue, wildcardEnabled, options);
