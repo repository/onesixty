@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+Enable npm provenance attestation on publish.
+
 ## 0.1.1
 
 Package metadata and CI fixes.
