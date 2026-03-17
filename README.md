@@ -17,6 +17,7 @@ onesixty is a zero-dependency TypeScript implementation of [AIP-160](https://goo
 - **Async functions:** custom functions can return promises
 - **Serializable:** compiled filters survive `JSON.stringify` for storage and transfer
 - **Structured errors:** every error is a typed class with machine-readable data, not just a message string
+- **Tolerant mode:** collect all errors and get a best-effort CST for editor integrations and as-you-type validation
 - **Bring your own backend:** use the AST directly to generate SQL, Elasticsearch queries, or anything else
 
 ## Install
@@ -116,32 +117,44 @@ evaluate(ast, { status: "contracted", grief: 30 }); // true
 
 You can also skip the built-in evaluator entirely and handle evaluation through your own means with the AST.
 
-<details>
-<summary>Example: AST to SQL</summary>
-
 ```ts
+// Walk the AST to build a WHERE clause
+const params: string[] = [];
 function toSQL(node: ASTNode | null): string {
-  if (node === null) return "1=1";
-  switch (node.type) {
-    case "and":
-      return node.children.map(toSQL).join(" AND ");
-    case "or":
-      return `(${node.children.map(toSQL).join(" OR ")})`;
-    case "not":
-      return `NOT (${toSQL(node.child)})`;
-    case "restriction":
-      return node.comparable.type === "member"
-        ? `${node.comparable.path.join(".")} ${node.comparator} ?`
-        : `${node.comparable.qualifiedName}() ${node.comparator} ?`;
-    default:
-      return "1=1";
+  if (!node) return "1=1";
+  if (node.type === "and") return node.children.map(toSQL).join(" AND ");
+  if (node.type === "not") return `NOT (${toSQL(node.child)})`;
+  if (node.type === "restriction" && node.comparable.type === "member") {
+    params.push(node.arg?.type === "value" ? node.arg.value : "");
+    return `${node.comparable.path.join(".")} ${node.comparator} $${params.length}`;
   }
+  return "1=1";
 }
 
-toSQL(ast); // "status = ? AND grief <= ?"
+toSQL(ast); // "status = $1 AND grief <= $2", params: ["contracted", "50"]
 ```
 
-</details>
+### Tolerant parsing
+
+By default, `parse` throws on the first syntax error. Pass `tolerant: true` to collect all errors and get a best-effort CST instead. This is useful for editor integrations, as-you-type validation, and anywhere you want diagnostics without aborting.
+
+```ts
+import { parse, toCleanTree, transform } from "onesixty";
+
+const result = parse("status = AND power >= 3", { tolerant: true });
+
+result.ok; // false - there are errors
+result.errors; // [ExpectedValueError: Expected a value after '=', found 'AND']
+result.cst; // complete CST - 'status = <placeholder>' AND 'power >= 3'
+
+// If the tree is clean, narrow it to a strict FilterNode for evaluation
+const clean = toCleanTree(result);
+if (clean) {
+  const ast = transform(clean);
+}
+```
+
+The tolerant parser never throws. It uses insertion-based recovery to fill in missing values with zero-width placeholders, so subsequent valid expressions are still parsed. `toCleanTree` returns `null` if any errors were found, or a strict `FilterNode` you can pass to `transform`.
 
 ### Error handling
 
@@ -263,10 +276,12 @@ The `comparable` field on restrictions is always `ASTMemberNode | ASTFunctionNod
 <details>
 <summary>Parse options</summary>
 
-| Option      | Type     | Default | Description                       |
-| ----------- | -------- | ------- | --------------------------------- |
-| `maxDepth`  | `number` | `64`    | Maximum parenthesis nesting depth |
-| `maxLength` | `number` | `8192`  | Maximum input string length       |
+| Option      | Type      | Default | Description                                                           |
+| ----------- | --------- | ------- | --------------------------------------------------------------------- |
+| `maxDepth`  | `number`  | `64`    | Maximum parenthesis nesting depth                                     |
+| `maxLength` | `number`  | `8192`  | Maximum input string length                                           |
+| `tolerant`  | `boolean` | `false` | Collect errors instead of throwing; return type becomes `ParseResult` |
+| `maxErrors` | `number`  | `20`    | Stop recovery after this many errors (only with `tolerant`)           |
 
 </details>
 

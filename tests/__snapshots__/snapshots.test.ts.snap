@@ -402,6 +402,2366 @@ exports[`snapshot: filter > with options 1`] = `true`;
 
 exports[`snapshot: filterAsync > async match 1`] = `true`;
 
+exports[`snapshot: parse (tolerant) > AND AND (expected expression) 1`] = `
+{
+  "cst": {
+    "expression": {
+      "sequences": [
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 1,
+                "start": 0,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "arg": null,
+                    "comparable": {
+                      "fields": [],
+                      "span": {
+                        "end": 1,
+                        "start": 0,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 1,
+                          "start": 0,
+                        },
+                        "token": {
+                          "end": 1,
+                          "kind": 15,
+                          "start": 0,
+                          "value": "a",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparator": null,
+                    "span": {
+                      "end": 1,
+                      "start": 0,
+                    },
+                    "type": "Restriction",
+                  },
+                  "span": {
+                    "end": 1,
+                    "start": 0,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 1,
+            "start": 0,
+          },
+          "type": "Sequence",
+        },
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 6,
+                "start": 6,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "error": [Error: Expected an expression after 'AND', found keyword 'AND'],
+                    "expectedAt": {
+                      "end": 6,
+                      "start": 6,
+                    },
+                    "skipped": [],
+                    "span": {
+                      "end": 6,
+                      "start": 6,
+                    },
+                    "type": "Error",
+                  },
+                  "span": {
+                    "end": 6,
+                    "start": 6,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 6,
+            "start": 6,
+          },
+          "type": "Sequence",
+        },
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 11,
+                "start": 10,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "arg": null,
+                    "comparable": {
+                      "fields": [],
+                      "span": {
+                        "end": 11,
+                        "start": 10,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 11,
+                          "start": 10,
+                        },
+                        "token": {
+                          "end": 11,
+                          "kind": 15,
+                          "start": 10,
+                          "value": "b",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparator": null,
+                    "span": {
+                      "end": 11,
+                      "start": 10,
+                    },
+                    "type": "Restriction",
+                  },
+                  "span": {
+                    "end": 11,
+                    "start": 10,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 11,
+            "start": 10,
+          },
+          "type": "Sequence",
+        },
+      ],
+      "span": {
+        "end": 11,
+        "start": 0,
+      },
+      "type": "Expression",
+    },
+    "span": {
+      "end": 11,
+      "start": 0,
+    },
+    "trailing": null,
+    "type": "Filter",
+  },
+  "errors": [
+    [Error: Expected an expression after 'AND', found keyword 'AND'],
+  ],
+  "ok": false,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > NOT without expression 1`] = `
+{
+  "cst": {
+    "expression": {
+      "sequences": [
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 3,
+                "start": 0,
+              },
+              "terms": [
+                {
+                  "negated": true,
+                  "simple": {
+                    "error": [Error: Expected an expression after 'NOT', found keyword 'AND'],
+                    "expectedAt": {
+                      "end": 4,
+                      "start": 4,
+                    },
+                    "skipped": [],
+                    "span": {
+                      "end": 4,
+                      "start": 4,
+                    },
+                    "type": "Error",
+                  },
+                  "span": {
+                    "end": 3,
+                    "start": 0,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 3,
+            "start": 0,
+          },
+          "type": "Sequence",
+        },
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 9,
+                "start": 8,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "arg": null,
+                    "comparable": {
+                      "fields": [],
+                      "span": {
+                        "end": 9,
+                        "start": 8,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 9,
+                          "start": 8,
+                        },
+                        "token": {
+                          "end": 9,
+                          "kind": 15,
+                          "start": 8,
+                          "value": "a",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparator": null,
+                    "span": {
+                      "end": 9,
+                      "start": 8,
+                    },
+                    "type": "Restriction",
+                  },
+                  "span": {
+                    "end": 9,
+                    "start": 8,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 9,
+            "start": 8,
+          },
+          "type": "Sequence",
+        },
+      ],
+      "span": {
+        "end": 9,
+        "start": 0,
+      },
+      "type": "Expression",
+    },
+    "span": {
+      "end": 9,
+      "start": 0,
+    },
+    "trailing": null,
+    "type": "Filter",
+  },
+  "errors": [
+    [Error: Expected an expression after 'NOT', found keyword 'AND'],
+  ],
+  "ok": false,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > OR OR (expected expression) 1`] = `
+{
+  "cst": {
+    "expression": {
+      "sequences": [
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 9,
+                "start": 0,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "arg": null,
+                    "comparable": {
+                      "fields": [],
+                      "span": {
+                        "end": 1,
+                        "start": 0,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 1,
+                          "start": 0,
+                        },
+                        "token": {
+                          "end": 1,
+                          "kind": 15,
+                          "start": 0,
+                          "value": "a",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparator": null,
+                    "span": {
+                      "end": 1,
+                      "start": 0,
+                    },
+                    "type": "Restriction",
+                  },
+                  "span": {
+                    "end": 1,
+                    "start": 0,
+                  },
+                  "type": "Term",
+                },
+                {
+                  "negated": false,
+                  "simple": {
+                    "error": [Error: Expected an expression after 'OR', found keyword 'OR'],
+                    "expectedAt": {
+                      "end": 5,
+                      "start": 5,
+                    },
+                    "skipped": [],
+                    "span": {
+                      "end": 5,
+                      "start": 5,
+                    },
+                    "type": "Error",
+                  },
+                  "span": {
+                    "end": 5,
+                    "start": 5,
+                  },
+                  "type": "Term",
+                },
+                {
+                  "negated": false,
+                  "simple": {
+                    "arg": null,
+                    "comparable": {
+                      "fields": [],
+                      "span": {
+                        "end": 9,
+                        "start": 8,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 9,
+                          "start": 8,
+                        },
+                        "token": {
+                          "end": 9,
+                          "kind": 15,
+                          "start": 8,
+                          "value": "b",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparator": null,
+                    "span": {
+                      "end": 9,
+                      "start": 8,
+                    },
+                    "type": "Restriction",
+                  },
+                  "span": {
+                    "end": 9,
+                    "start": 8,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 9,
+            "start": 0,
+          },
+          "type": "Sequence",
+        },
+      ],
+      "span": {
+        "end": 9,
+        "start": 0,
+      },
+      "type": "Expression",
+    },
+    "span": {
+      "end": 9,
+      "start": 0,
+    },
+    "trailing": null,
+    "type": "Filter",
+  },
+  "errors": [
+    [Error: Expected an expression after 'OR', found keyword 'OR'],
+  ],
+  "ok": false,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > depth limit exceeded 1`] = `
+{
+  "cst": {
+    "expression": {
+      "sequences": [
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 5,
+                "start": 0,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "expression": {
+                      "sequences": [
+                        {
+                          "factors": [
+                            {
+                              "span": {
+                                "end": 4,
+                                "start": 1,
+                              },
+                              "terms": [
+                                {
+                                  "negated": false,
+                                  "simple": {
+                                    "error": [Error: Maximum nesting depth exceeded (1)],
+                                    "expectedAt": {
+                                      "end": 2,
+                                      "start": 1,
+                                    },
+                                    "skipped": [
+                                      {
+                                        "end": 2,
+                                        "kind": 10,
+                                        "start": 1,
+                                        "value": "(",
+                                      },
+                                      {
+                                        "end": 3,
+                                        "kind": 15,
+                                        "start": 2,
+                                        "value": "a",
+                                      },
+                                      {
+                                        "end": 4,
+                                        "kind": 11,
+                                        "start": 3,
+                                        "value": ")",
+                                      },
+                                    ],
+                                    "span": {
+                                      "end": 4,
+                                      "start": 1,
+                                    },
+                                    "type": "Error",
+                                  },
+                                  "span": {
+                                    "end": 4,
+                                    "start": 1,
+                                  },
+                                  "type": "Term",
+                                },
+                              ],
+                              "type": "Factor",
+                            },
+                          ],
+                          "span": {
+                            "end": 4,
+                            "start": 1,
+                          },
+                          "type": "Sequence",
+                        },
+                      ],
+                      "span": {
+                        "end": 4,
+                        "start": 1,
+                      },
+                      "type": "Expression",
+                    },
+                    "span": {
+                      "end": 5,
+                      "start": 0,
+                    },
+                    "type": "Composite",
+                  },
+                  "span": {
+                    "end": 5,
+                    "start": 0,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 5,
+            "start": 0,
+          },
+          "type": "Sequence",
+        },
+      ],
+      "span": {
+        "end": 5,
+        "start": 0,
+      },
+      "type": "Expression",
+    },
+    "span": {
+      "end": 5,
+      "start": 0,
+    },
+    "trailing": null,
+    "type": "Filter",
+  },
+  "errors": [
+    [Error: Maximum nesting depth exceeded (1)],
+  ],
+  "ok": false,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > empty input 1`] = `
+{
+  "cst": {
+    "expression": null,
+    "span": {
+      "end": 0,
+      "start": 0,
+    },
+    "trailing": null,
+    "type": "Filter",
+  },
+  "errors": [],
+  "ok": true,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > empty parentheses 1`] = `
+{
+  "cst": {
+    "expression": {
+      "sequences": [
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 2,
+                "start": 0,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "expression": {
+                      "error": [Error: Expected an expression inside parentheses],
+                      "expectedAt": {
+                        "end": 1,
+                        "start": 1,
+                      },
+                      "skipped": [],
+                      "span": {
+                        "end": 1,
+                        "start": 1,
+                      },
+                      "type": "Error",
+                    },
+                    "span": {
+                      "end": 2,
+                      "start": 0,
+                    },
+                    "type": "Composite",
+                  },
+                  "span": {
+                    "end": 2,
+                    "start": 0,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 2,
+            "start": 0,
+          },
+          "type": "Sequence",
+        },
+      ],
+      "span": {
+        "end": 2,
+        "start": 0,
+      },
+      "type": "Expression",
+    },
+    "span": {
+      "end": 2,
+      "start": 0,
+    },
+    "trailing": null,
+    "type": "Filter",
+  },
+  "errors": [
+    [Error: Expected an expression inside parentheses],
+  ],
+  "ok": false,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > input length exceeded 1`] = `
+{
+  "cst": {
+    "expression": null,
+    "span": {
+      "end": 100,
+      "start": 0,
+    },
+    "trailing": null,
+    "type": "Filter",
+  },
+  "errors": [
+    [Error: Filter exceeds maximum length of 10 characters],
+  ],
+  "ok": false,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > lexer + parser errors combined 1`] = `
+{
+  "cst": {
+    "expression": {
+      "sequences": [
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 33,
+                "start": 0,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "arg": {
+                      "fields": [],
+                      "span": {
+                        "end": 33,
+                        "start": 4,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 33,
+                          "start": 4,
+                        },
+                        "token": {
+                          "end": 33,
+                          "kind": 16,
+                          "start": 4,
+                          "value": "unterminated AND b AND AND c",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparable": {
+                      "fields": [],
+                      "span": {
+                        "end": 1,
+                        "start": 0,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 1,
+                          "start": 0,
+                        },
+                        "token": {
+                          "end": 1,
+                          "kind": 15,
+                          "start": 0,
+                          "value": "a",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparator": 3,
+                    "span": {
+                      "end": 33,
+                      "start": 0,
+                    },
+                    "type": "Restriction",
+                  },
+                  "span": {
+                    "end": 33,
+                    "start": 0,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 33,
+            "start": 0,
+          },
+          "type": "Sequence",
+        },
+      ],
+      "span": {
+        "end": 33,
+        "start": 0,
+      },
+      "type": "Expression",
+    },
+    "span": {
+      "end": 33,
+      "start": 0,
+    },
+    "trailing": null,
+    "type": "Filter",
+  },
+  "errors": [
+    [Error: Unterminated string],
+  ],
+  "ok": false,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > maxErrors stops recovery 1`] = `
+{
+  "cst": {
+    "expression": {
+      "sequences": [
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 2,
+                "start": 0,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "expression": {
+                      "error": [Error: Expected an expression inside parentheses],
+                      "expectedAt": {
+                        "end": 1,
+                        "start": 1,
+                      },
+                      "skipped": [],
+                      "span": {
+                        "end": 1,
+                        "start": 1,
+                      },
+                      "type": "Error",
+                    },
+                    "span": {
+                      "end": 2,
+                      "start": 0,
+                    },
+                    "type": "Composite",
+                  },
+                  "span": {
+                    "end": 2,
+                    "start": 0,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+            {
+              "span": {
+                "end": 5,
+                "start": 3,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "expression": {
+                      "error": [Error: Expected an expression inside parentheses],
+                      "expectedAt": {
+                        "end": 4,
+                        "start": 4,
+                      },
+                      "skipped": [],
+                      "span": {
+                        "end": 4,
+                        "start": 4,
+                      },
+                      "type": "Error",
+                    },
+                    "span": {
+                      "end": 5,
+                      "start": 3,
+                    },
+                    "type": "Composite",
+                  },
+                  "span": {
+                    "end": 5,
+                    "start": 3,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 5,
+            "start": 0,
+          },
+          "type": "Sequence",
+        },
+      ],
+      "span": {
+        "end": 5,
+        "start": 0,
+      },
+      "type": "Expression",
+    },
+    "span": {
+      "end": 5,
+      "start": 0,
+    },
+    "trailing": null,
+    "type": "Filter",
+  },
+  "errors": [
+    [Error: Expected an expression inside parentheses],
+    [Error: Expected an expression inside parentheses],
+  ],
+  "ok": false,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > missing arg after comma (insertion recovery) 1`] = `
+{
+  "cst": {
+    "expression": {
+      "sequences": [
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 6,
+                "start": 0,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "arg": null,
+                    "comparable": {
+                      "args": [
+                        {
+                          "fields": [],
+                          "span": {
+                            "end": 4,
+                            "start": 3,
+                          },
+                          "type": "Member",
+                          "value": {
+                            "span": {
+                              "end": 4,
+                              "start": 3,
+                            },
+                            "token": {
+                              "end": 4,
+                              "kind": 15,
+                              "start": 3,
+                              "value": "a",
+                            },
+                            "type": "Value",
+                          },
+                        },
+                        {
+                          "fields": [],
+                          "span": {
+                            "end": 5,
+                            "start": 5,
+                          },
+                          "type": "Member",
+                          "value": {
+                            "span": {
+                              "end": 5,
+                              "start": 5,
+                            },
+                            "token": {
+                              "end": 5,
+                              "kind": 15,
+                              "start": 5,
+                              "value": "",
+                            },
+                            "type": "Value",
+                          },
+                        },
+                      ],
+                      "name": [
+                        {
+                          "span": {
+                            "end": 2,
+                            "start": 0,
+                          },
+                          "token": {
+                            "end": 2,
+                            "kind": 15,
+                            "start": 0,
+                            "value": "fn",
+                          },
+                          "type": "Value",
+                        },
+                      ],
+                      "span": {
+                        "end": 6,
+                        "start": 0,
+                      },
+                      "type": "FunctionCall",
+                    },
+                    "comparator": null,
+                    "span": {
+                      "end": 6,
+                      "start": 0,
+                    },
+                    "type": "Restriction",
+                  },
+                  "span": {
+                    "end": 6,
+                    "start": 0,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 6,
+            "start": 0,
+          },
+          "type": "Sequence",
+        },
+      ],
+      "span": {
+        "end": 6,
+        "start": 0,
+      },
+      "type": "Expression",
+    },
+    "span": {
+      "end": 6,
+      "start": 0,
+    },
+    "trailing": null,
+    "type": "Filter",
+  },
+  "errors": [
+    [Error: Expected an argument after ',', found ')'],
+  ],
+  "ok": false,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > missing value after comparator (insertion recovery) 1`] = `
+{
+  "cst": {
+    "expression": {
+      "sequences": [
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 3,
+                "start": 0,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "arg": {
+                      "fields": [],
+                      "span": {
+                        "end": 3,
+                        "start": 3,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 3,
+                          "start": 3,
+                        },
+                        "token": {
+                          "end": 3,
+                          "kind": 15,
+                          "start": 3,
+                          "value": "",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparable": {
+                      "fields": [],
+                      "span": {
+                        "end": 1,
+                        "start": 0,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 1,
+                          "start": 0,
+                        },
+                        "token": {
+                          "end": 1,
+                          "kind": 15,
+                          "start": 0,
+                          "value": "a",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparator": 3,
+                    "span": {
+                      "end": 3,
+                      "start": 0,
+                    },
+                    "type": "Restriction",
+                  },
+                  "span": {
+                    "end": 3,
+                    "start": 0,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 3,
+            "start": 0,
+          },
+          "type": "Sequence",
+        },
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 13,
+                "start": 8,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "arg": {
+                      "fields": [],
+                      "span": {
+                        "end": 13,
+                        "start": 12,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 13,
+                          "start": 12,
+                        },
+                        "token": {
+                          "end": 13,
+                          "kind": 15,
+                          "start": 12,
+                          "value": "1",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparable": {
+                      "fields": [],
+                      "span": {
+                        "end": 9,
+                        "start": 8,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 9,
+                          "start": 8,
+                        },
+                        "token": {
+                          "end": 9,
+                          "kind": 15,
+                          "start": 8,
+                          "value": "b",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparator": 3,
+                    "span": {
+                      "end": 13,
+                      "start": 8,
+                    },
+                    "type": "Restriction",
+                  },
+                  "span": {
+                    "end": 13,
+                    "start": 8,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 13,
+            "start": 8,
+          },
+          "type": "Sequence",
+        },
+      ],
+      "span": {
+        "end": 13,
+        "start": 0,
+      },
+      "type": "Expression",
+    },
+    "span": {
+      "end": 13,
+      "start": 0,
+    },
+    "trailing": null,
+    "type": "Filter",
+  },
+  "errors": [
+    [Error: Expected a value after '=', found keyword 'AND'],
+  ],
+  "ok": false,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > multiple errors 1`] = `
+{
+  "cst": {
+    "expression": {
+      "sequences": [
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 2,
+                "start": 0,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "expression": {
+                      "error": [Error: Expected an expression inside parentheses],
+                      "expectedAt": {
+                        "end": 1,
+                        "start": 1,
+                      },
+                      "skipped": [],
+                      "span": {
+                        "end": 1,
+                        "start": 1,
+                      },
+                      "type": "Error",
+                    },
+                    "span": {
+                      "end": 2,
+                      "start": 0,
+                    },
+                    "type": "Composite",
+                  },
+                  "span": {
+                    "end": 2,
+                    "start": 0,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 2,
+            "start": 0,
+          },
+          "type": "Sequence",
+        },
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 9,
+                "start": 7,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "expression": {
+                      "error": [Error: Expected an expression inside parentheses],
+                      "expectedAt": {
+                        "end": 8,
+                        "start": 8,
+                      },
+                      "skipped": [],
+                      "span": {
+                        "end": 8,
+                        "start": 8,
+                      },
+                      "type": "Error",
+                    },
+                    "span": {
+                      "end": 9,
+                      "start": 7,
+                    },
+                    "type": "Composite",
+                  },
+                  "span": {
+                    "end": 9,
+                    "start": 7,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 9,
+            "start": 7,
+          },
+          "type": "Sequence",
+        },
+      ],
+      "span": {
+        "end": 9,
+        "start": 0,
+      },
+      "type": "Expression",
+    },
+    "span": {
+      "end": 9,
+      "start": 0,
+    },
+    "trailing": null,
+    "type": "Filter",
+  },
+  "errors": [
+    [Error: Expected an expression inside parentheses],
+    [Error: Expected an expression inside parentheses],
+  ],
+  "ok": false,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > negative field path 1`] = `
+{
+  "cst": {
+    "expression": {
+      "sequences": [
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 8,
+                "start": 0,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "arg": {
+                      "fields": [
+                        {
+                          "span": {
+                            "end": 8,
+                            "start": 7,
+                          },
+                          "token": {
+                            "end": 8,
+                            "kind": 15,
+                            "start": 7,
+                            "value": "c",
+                          },
+                          "type": "Value",
+                        },
+                      ],
+                      "span": {
+                        "end": 8,
+                        "start": 4,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 6,
+                          "start": 4,
+                        },
+                        "token": {
+                          "end": 6,
+                          "kind": 15,
+                          "start": 4,
+                          "value": "-b",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparable": {
+                      "fields": [],
+                      "span": {
+                        "end": 1,
+                        "start": 0,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 1,
+                          "start": 0,
+                        },
+                        "token": {
+                          "end": 1,
+                          "kind": 15,
+                          "start": 0,
+                          "value": "a",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparator": 3,
+                    "span": {
+                      "end": 8,
+                      "start": 0,
+                    },
+                    "type": "Restriction",
+                  },
+                  "span": {
+                    "end": 8,
+                    "start": 0,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 8,
+            "start": 0,
+          },
+          "type": "Sequence",
+        },
+      ],
+      "span": {
+        "end": 8,
+        "start": 0,
+      },
+      "type": "Expression",
+    },
+    "span": {
+      "end": 8,
+      "start": 0,
+    },
+    "trailing": null,
+    "type": "Filter",
+  },
+  "errors": [
+    [Error: Negative sign can only be applied to a numeric value, not a field path],
+  ],
+  "ok": false,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > quoted function name 1`] = `
+{
+  "cst": {
+    "expression": {
+      "sequences": [
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 6,
+                "start": 0,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "arg": null,
+                    "comparable": {
+                      "args": [],
+                      "name": [
+                        {
+                          "span": {
+                            "end": 4,
+                            "start": 0,
+                          },
+                          "token": {
+                            "end": 4,
+                            "kind": 16,
+                            "start": 0,
+                            "value": "fn",
+                          },
+                          "type": "Value",
+                        },
+                      ],
+                      "span": {
+                        "end": 6,
+                        "start": 0,
+                      },
+                      "type": "FunctionCall",
+                    },
+                    "comparator": null,
+                    "span": {
+                      "end": 6,
+                      "start": 0,
+                    },
+                    "type": "Restriction",
+                  },
+                  "span": {
+                    "end": 6,
+                    "start": 0,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 6,
+            "start": 0,
+          },
+          "type": "Sequence",
+        },
+      ],
+      "span": {
+        "end": 6,
+        "start": 0,
+      },
+      "type": "Expression",
+    },
+    "span": {
+      "end": 6,
+      "start": 0,
+    },
+    "trailing": null,
+    "type": "Filter",
+  },
+  "errors": [
+    [Error: Quoted strings cannot be used as function names],
+  ],
+  "ok": false,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > trailing AND 1`] = `
+{
+  "cst": {
+    "expression": {
+      "sequences": [
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 1,
+                "start": 0,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "arg": null,
+                    "comparable": {
+                      "fields": [],
+                      "span": {
+                        "end": 1,
+                        "start": 0,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 1,
+                          "start": 0,
+                        },
+                        "token": {
+                          "end": 1,
+                          "kind": 15,
+                          "start": 0,
+                          "value": "a",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparator": null,
+                    "span": {
+                      "end": 1,
+                      "start": 0,
+                    },
+                    "type": "Restriction",
+                  },
+                  "span": {
+                    "end": 1,
+                    "start": 0,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 1,
+            "start": 0,
+          },
+          "type": "Sequence",
+        },
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 5,
+                "start": 5,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "error": [Error: Expected an expression after 'AND', found end of input],
+                    "expectedAt": {
+                      "end": 5,
+                      "start": 5,
+                    },
+                    "skipped": [],
+                    "span": {
+                      "end": 5,
+                      "start": 5,
+                    },
+                    "type": "Error",
+                  },
+                  "span": {
+                    "end": 5,
+                    "start": 5,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 5,
+            "start": 5,
+          },
+          "type": "Sequence",
+        },
+      ],
+      "span": {
+        "end": 5,
+        "start": 0,
+      },
+      "type": "Expression",
+    },
+    "span": {
+      "end": 5,
+      "start": 0,
+    },
+    "trailing": null,
+    "type": "Filter",
+  },
+  "errors": [
+    [Error: Expected an expression after 'AND', found end of input],
+  ],
+  "ok": false,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > trailing content 1`] = `
+{
+  "cst": {
+    "expression": {
+      "sequences": [
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 5,
+                "start": 0,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "arg": {
+                      "fields": [],
+                      "span": {
+                        "end": 5,
+                        "start": 4,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 5,
+                          "start": 4,
+                        },
+                        "token": {
+                          "end": 5,
+                          "kind": 15,
+                          "start": 4,
+                          "value": "1",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparable": {
+                      "fields": [],
+                      "span": {
+                        "end": 1,
+                        "start": 0,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 1,
+                          "start": 0,
+                        },
+                        "token": {
+                          "end": 1,
+                          "kind": 15,
+                          "start": 0,
+                          "value": "a",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparator": 3,
+                    "span": {
+                      "end": 5,
+                      "start": 0,
+                    },
+                    "type": "Restriction",
+                  },
+                  "span": {
+                    "end": 5,
+                    "start": 0,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 5,
+            "start": 0,
+          },
+          "type": "Sequence",
+        },
+      ],
+      "span": {
+        "end": 5,
+        "start": 0,
+      },
+      "type": "Expression",
+    },
+    "span": {
+      "end": 5,
+      "start": 0,
+    },
+    "trailing": {
+      "error": [Error: Unexpected ')' after filter expression],
+      "expectedAt": {
+        "end": 6,
+        "start": 5,
+      },
+      "skipped": [
+        {
+          "end": 6,
+          "kind": 11,
+          "start": 5,
+          "value": ")",
+        },
+        {
+          "end": 10,
+          "kind": 0,
+          "start": 7,
+          "value": "AND",
+        },
+        {
+          "end": 12,
+          "kind": 15,
+          "start": 11,
+          "value": "b",
+        },
+        {
+          "end": 14,
+          "kind": 3,
+          "start": 13,
+          "value": "=",
+        },
+        {
+          "end": 16,
+          "kind": 15,
+          "start": 15,
+          "value": "2",
+        },
+      ],
+      "span": {
+        "end": 16,
+        "start": 5,
+      },
+      "type": "Error",
+    },
+    "type": "Filter",
+  },
+  "errors": [
+    [Error: Unexpected ')' after filter expression],
+  ],
+  "ok": false,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > unclosed function call 1`] = `
+{
+  "cst": {
+    "expression": {
+      "sequences": [
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 7,
+                "start": 0,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "arg": null,
+                    "comparable": {
+                      "args": [
+                        {
+                          "fields": [],
+                          "span": {
+                            "end": 4,
+                            "start": 3,
+                          },
+                          "type": "Member",
+                          "value": {
+                            "span": {
+                              "end": 4,
+                              "start": 3,
+                            },
+                            "token": {
+                              "end": 4,
+                              "kind": 15,
+                              "start": 3,
+                              "value": "a",
+                            },
+                            "type": "Value",
+                          },
+                        },
+                        {
+                          "fields": [],
+                          "span": {
+                            "end": 7,
+                            "start": 6,
+                          },
+                          "type": "Member",
+                          "value": {
+                            "span": {
+                              "end": 7,
+                              "start": 6,
+                            },
+                            "token": {
+                              "end": 7,
+                              "kind": 15,
+                              "start": 6,
+                              "value": "b",
+                            },
+                            "type": "Value",
+                          },
+                        },
+                      ],
+                      "name": [
+                        {
+                          "span": {
+                            "end": 2,
+                            "start": 0,
+                          },
+                          "token": {
+                            "end": 2,
+                            "kind": 15,
+                            "start": 0,
+                            "value": "fn",
+                          },
+                          "type": "Value",
+                        },
+                      ],
+                      "span": {
+                        "end": 7,
+                        "start": 0,
+                      },
+                      "type": "FunctionCall",
+                    },
+                    "comparator": null,
+                    "span": {
+                      "end": 7,
+                      "start": 0,
+                    },
+                    "type": "Restriction",
+                  },
+                  "span": {
+                    "end": 7,
+                    "start": 0,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 7,
+            "start": 0,
+          },
+          "type": "Sequence",
+        },
+      ],
+      "span": {
+        "end": 7,
+        "start": 0,
+      },
+      "type": "Expression",
+    },
+    "span": {
+      "end": 7,
+      "start": 0,
+    },
+    "trailing": null,
+    "type": "Filter",
+  },
+  "errors": [
+    [Error: Expected ')' to close function call, found end of input],
+  ],
+  "ok": false,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > unclosed parenthesis 1`] = `
+{
+  "cst": {
+    "expression": {
+      "sequences": [
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 6,
+                "start": 0,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "expression": {
+                      "sequences": [
+                        {
+                          "factors": [
+                            {
+                              "span": {
+                                "end": 6,
+                                "start": 1,
+                              },
+                              "terms": [
+                                {
+                                  "negated": false,
+                                  "simple": {
+                                    "arg": {
+                                      "fields": [],
+                                      "span": {
+                                        "end": 6,
+                                        "start": 5,
+                                      },
+                                      "type": "Member",
+                                      "value": {
+                                        "span": {
+                                          "end": 6,
+                                          "start": 5,
+                                        },
+                                        "token": {
+                                          "end": 6,
+                                          "kind": 15,
+                                          "start": 5,
+                                          "value": "1",
+                                        },
+                                        "type": "Value",
+                                      },
+                                    },
+                                    "comparable": {
+                                      "fields": [],
+                                      "span": {
+                                        "end": 2,
+                                        "start": 1,
+                                      },
+                                      "type": "Member",
+                                      "value": {
+                                        "span": {
+                                          "end": 2,
+                                          "start": 1,
+                                        },
+                                        "token": {
+                                          "end": 2,
+                                          "kind": 15,
+                                          "start": 1,
+                                          "value": "a",
+                                        },
+                                        "type": "Value",
+                                      },
+                                    },
+                                    "comparator": 3,
+                                    "span": {
+                                      "end": 6,
+                                      "start": 1,
+                                    },
+                                    "type": "Restriction",
+                                  },
+                                  "span": {
+                                    "end": 6,
+                                    "start": 1,
+                                  },
+                                  "type": "Term",
+                                },
+                              ],
+                              "type": "Factor",
+                            },
+                          ],
+                          "span": {
+                            "end": 6,
+                            "start": 1,
+                          },
+                          "type": "Sequence",
+                        },
+                      ],
+                      "span": {
+                        "end": 6,
+                        "start": 1,
+                      },
+                      "type": "Expression",
+                    },
+                    "span": {
+                      "end": 6,
+                      "start": 0,
+                    },
+                    "type": "Composite",
+                  },
+                  "span": {
+                    "end": 6,
+                    "start": 0,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 6,
+            "start": 0,
+          },
+          "type": "Sequence",
+        },
+      ],
+      "span": {
+        "end": 6,
+        "start": 0,
+      },
+      "type": "Expression",
+    },
+    "span": {
+      "end": 6,
+      "start": 0,
+    },
+    "trailing": null,
+    "type": "Filter",
+  },
+  "errors": [
+    [Error: Unclosed parenthesis: expected ')' to match '(' at position 0],
+  ],
+  "ok": false,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > unmatched closing paren (insertion recovery) 1`] = `
+{
+  "cst": {
+    "expression": {
+      "sequences": [
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 3,
+                "start": 0,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "arg": {
+                      "fields": [],
+                      "span": {
+                        "end": 3,
+                        "start": 3,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 3,
+                          "start": 3,
+                        },
+                        "token": {
+                          "end": 3,
+                          "kind": 15,
+                          "start": 3,
+                          "value": "",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparable": {
+                      "fields": [],
+                      "span": {
+                        "end": 1,
+                        "start": 0,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 1,
+                          "start": 0,
+                        },
+                        "token": {
+                          "end": 1,
+                          "kind": 15,
+                          "start": 0,
+                          "value": "a",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparator": 3,
+                    "span": {
+                      "end": 3,
+                      "start": 0,
+                    },
+                    "type": "Restriction",
+                  },
+                  "span": {
+                    "end": 3,
+                    "start": 0,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 3,
+            "start": 0,
+          },
+          "type": "Sequence",
+        },
+      ],
+      "span": {
+        "end": 3,
+        "start": 0,
+      },
+      "type": "Expression",
+    },
+    "span": {
+      "end": 3,
+      "start": 0,
+    },
+    "trailing": {
+      "error": [Error: Unexpected ')' after filter expression],
+      "expectedAt": {
+        "end": 5,
+        "start": 4,
+      },
+      "skipped": [
+        {
+          "end": 5,
+          "kind": 11,
+          "start": 4,
+          "value": ")",
+        },
+        {
+          "end": 7,
+          "kind": 15,
+          "start": 6,
+          "value": "b",
+        },
+        {
+          "end": 9,
+          "kind": 3,
+          "start": 8,
+          "value": "=",
+        },
+        {
+          "end": 11,
+          "kind": 15,
+          "start": 10,
+          "value": "1",
+        },
+      ],
+      "span": {
+        "end": 11,
+        "start": 4,
+      },
+      "type": "Error",
+    },
+    "type": "Filter",
+  },
+  "errors": [
+    [Error: Expected a value after '=', found ')'],
+    [Error: Unexpected ')' after filter expression],
+  ],
+  "ok": false,
+}
+`;
+
+exports[`snapshot: parse (tolerant) > valid input 1`] = `
+{
+  "cst": {
+    "expression": {
+      "sequences": [
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 5,
+                "start": 0,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "arg": {
+                      "fields": [],
+                      "span": {
+                        "end": 5,
+                        "start": 4,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 5,
+                          "start": 4,
+                        },
+                        "token": {
+                          "end": 5,
+                          "kind": 15,
+                          "start": 4,
+                          "value": "1",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparable": {
+                      "fields": [],
+                      "span": {
+                        "end": 1,
+                        "start": 0,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 1,
+                          "start": 0,
+                        },
+                        "token": {
+                          "end": 1,
+                          "kind": 15,
+                          "start": 0,
+                          "value": "a",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparator": 3,
+                    "span": {
+                      "end": 5,
+                      "start": 0,
+                    },
+                    "type": "Restriction",
+                  },
+                  "span": {
+                    "end": 5,
+                    "start": 0,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 5,
+            "start": 0,
+          },
+          "type": "Sequence",
+        },
+        {
+          "factors": [
+            {
+              "span": {
+                "end": 15,
+                "start": 10,
+              },
+              "terms": [
+                {
+                  "negated": false,
+                  "simple": {
+                    "arg": {
+                      "fields": [],
+                      "span": {
+                        "end": 15,
+                        "start": 14,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 15,
+                          "start": 14,
+                        },
+                        "token": {
+                          "end": 15,
+                          "kind": 15,
+                          "start": 14,
+                          "value": "2",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparable": {
+                      "fields": [],
+                      "span": {
+                        "end": 11,
+                        "start": 10,
+                      },
+                      "type": "Member",
+                      "value": {
+                        "span": {
+                          "end": 11,
+                          "start": 10,
+                        },
+                        "token": {
+                          "end": 11,
+                          "kind": 15,
+                          "start": 10,
+                          "value": "b",
+                        },
+                        "type": "Value",
+                      },
+                    },
+                    "comparator": 3,
+                    "span": {
+                      "end": 15,
+                      "start": 10,
+                    },
+                    "type": "Restriction",
+                  },
+                  "span": {
+                    "end": 15,
+                    "start": 10,
+                  },
+                  "type": "Term",
+                },
+              ],
+              "type": "Factor",
+            },
+          ],
+          "span": {
+            "end": 15,
+            "start": 10,
+          },
+          "type": "Sequence",
+        },
+      ],
+      "span": {
+        "end": 15,
+        "start": 0,
+      },
+      "type": "Expression",
+    },
+    "span": {
+      "end": 15,
+      "start": 0,
+    },
+    "trailing": null,
+    "type": "Filter",
+  },
+  "errors": [],
+  "ok": true,
+}
+`;
+
 exports[`snapshot: parse > AND expression 1`] = `
 {
   "expression": {
@@ -2865,6 +5225,340 @@ exports[`snapshot: parse > string comparison 1`] = `
     "start": 0,
   },
   "type": "Filter",
+}
+`;
+
+exports[`snapshot: toCleanTree > clean tolerant CST narrows to strict FilterNode 1`] = `
+{
+  "expression": {
+    "sequences": [
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 5,
+              "start": 0,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": {
+                    "fields": [],
+                    "span": {
+                      "end": 5,
+                      "start": 4,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 5,
+                        "start": 4,
+                      },
+                      "token": {
+                        "end": 5,
+                        "kind": 15,
+                        "start": 4,
+                        "value": "1",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 1,
+                      "start": 0,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 1,
+                        "start": 0,
+                      },
+                      "token": {
+                        "end": 1,
+                        "kind": 15,
+                        "start": 0,
+                        "value": "a",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": 3,
+                  "span": {
+                    "end": 5,
+                    "start": 0,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 5,
+                  "start": 0,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 5,
+          "start": 0,
+        },
+        "type": "Sequence",
+      },
+      {
+        "factors": [
+          {
+            "span": {
+              "end": 15,
+              "start": 10,
+            },
+            "terms": [
+              {
+                "negated": false,
+                "simple": {
+                  "arg": {
+                    "fields": [],
+                    "span": {
+                      "end": 15,
+                      "start": 14,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 15,
+                        "start": 14,
+                      },
+                      "token": {
+                        "end": 15,
+                        "kind": 15,
+                        "start": 14,
+                        "value": "2",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparable": {
+                    "fields": [],
+                    "span": {
+                      "end": 11,
+                      "start": 10,
+                    },
+                    "type": "Member",
+                    "value": {
+                      "span": {
+                        "end": 11,
+                        "start": 10,
+                      },
+                      "token": {
+                        "end": 11,
+                        "kind": 15,
+                        "start": 10,
+                        "value": "b",
+                      },
+                      "type": "Value",
+                    },
+                  },
+                  "comparator": 3,
+                  "span": {
+                    "end": 15,
+                    "start": 10,
+                  },
+                  "type": "Restriction",
+                },
+                "span": {
+                  "end": 15,
+                  "start": 10,
+                },
+                "type": "Term",
+              },
+            ],
+            "type": "Factor",
+          },
+        ],
+        "span": {
+          "end": 15,
+          "start": 10,
+        },
+        "type": "Sequence",
+      },
+    ],
+    "span": {
+      "end": 15,
+      "start": 0,
+    },
+    "type": "Expression",
+  },
+  "span": {
+    "end": 15,
+    "start": 0,
+  },
+  "trailing": null,
+  "type": "Filter",
+}
+`;
+
+exports[`snapshot: toCleanTree > clean tree passes through transform 1`] = `
+{
+  "children": [
+    {
+      "arg": {
+        "quoted": false,
+        "span": {
+          "end": 10,
+          "start": 9,
+        },
+        "type": "value",
+        "value": "5",
+      },
+      "comparable": {
+        "path": [
+          "power",
+        ],
+        "span": {
+          "end": 5,
+          "start": 0,
+        },
+        "type": "member",
+      },
+      "comparator": ">=",
+      "span": {
+        "end": 10,
+        "start": 0,
+      },
+      "type": "restriction",
+    },
+    {
+      "arg": {
+        "quoted": false,
+        "span": {
+          "end": 26,
+          "start": 20,
+        },
+        "type": "value",
+        "value": "active",
+      },
+      "comparable": {
+        "path": [
+          "name",
+        ],
+        "span": {
+          "end": 19,
+          "start": 15,
+        },
+        "type": "member",
+      },
+      "comparator": ":",
+      "span": {
+        "end": 26,
+        "start": 15,
+      },
+      "type": "restriction",
+    },
+  ],
+  "span": {
+    "end": 26,
+    "start": 0,
+  },
+  "type": "and",
+}
+`;
+
+exports[`snapshot: toCleanTree > dirty tolerant CST returns null 1`] = `null`;
+
+exports[`snapshot: tokenize (tolerant) > bare ! 1`] = `
+{
+  "errors": [
+    [Error: Unexpected character '!'],
+  ],
+  "tokens": [
+    {
+      "end": 1,
+      "kind": 15,
+      "start": 0,
+      "value": "a",
+    },
+    {
+      "end": 5,
+      "kind": 15,
+      "start": 4,
+      "value": "b",
+    },
+    {
+      "end": 5,
+      "kind": 17,
+      "start": 5,
+      "value": "",
+    },
+  ],
+}
+`;
+
+exports[`snapshot: tokenize (tolerant) > unterminated string 1`] = `
+{
+  "errors": [
+    [Error: Unterminated string],
+  ],
+  "tokens": [
+    {
+      "end": 1,
+      "kind": 15,
+      "start": 0,
+      "value": "a",
+    },
+    {
+      "end": 3,
+      "kind": 3,
+      "start": 2,
+      "value": "=",
+    },
+    {
+      "end": 10,
+      "kind": 16,
+      "start": 4,
+      "value": "hello",
+    },
+    {
+      "end": 10,
+      "kind": 17,
+      "start": 10,
+      "value": "",
+    },
+  ],
+}
+`;
+
+exports[`snapshot: tokenize (tolerant) > valid input (no errors) 1`] = `
+{
+  "errors": [],
+  "tokens": [
+    {
+      "end": 1,
+      "kind": 15,
+      "start": 0,
+      "value": "a",
+    },
+    {
+      "end": 3,
+      "kind": 3,
+      "start": 2,
+      "value": "=",
+    },
+    {
+      "end": 5,
+      "kind": 15,
+      "start": 4,
+      "value": "1",
+    },
+    {
+      "end": 5,
+      "kind": 17,
+      "start": 5,
+      "value": "",
+    },
+  ],
 }
 `;
 
