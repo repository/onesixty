@@ -50,6 +50,11 @@ describe("README examples", () => {
     expect(f.evaluate({ status: "contracted" })).toBe(true);
   });
 
+  it("custom evaluation: parse + transform + evaluate", () => {
+    const ast = transform(parse('status = "contracted" AND grief <= 50'));
+    expect(evaluate(ast, { status: "contracted", grief: 30 })).toBe(true);
+  });
+
   it("custom evaluation: toSQL", () => {
     function toSQL(node: ASTNode | null): string {
       if (node === null) return "1=1";
@@ -69,8 +74,8 @@ describe("README examples", () => {
       }
     }
 
-    const result = toSQL(transform(parse('status = "contracted" AND grief <= 50')));
-    expect(result).toBe("status = ? AND grief <= ?");
+    const ast = transform(parse('status = "contracted" AND grief <= 50'));
+    expect(toSQL(ast)).toBe("status = ? AND grief <= ?");
   });
 
   it("error handling: structured FilterError", () => {
@@ -85,11 +90,5 @@ describe("README examples", () => {
         expect(e.hints).toContain("Remove the duplicate 'AND', or add an expression between them");
       }
     }
-  });
-
-  it("pipeline API", () => {
-    const cst = parse("grief <= 50");
-    const ast = transform(cst);
-    expect(evaluate(ast, { grief: 30 })).toBe(true);
   });
 });
