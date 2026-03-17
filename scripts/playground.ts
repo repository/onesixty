@@ -138,7 +138,14 @@ function processInput(input: string): void {
     console.log();
   } catch (e) {
     if (e instanceof FilterError) {
-      console.error(e.message);
+      console.error(`${e.constructor.name}: ${e.description}`);
+      if (e.span && e.source) {
+        console.error(`       ${e.source}`);
+        console.error(`       ${" ".repeat(e.span.start)}${"^".repeat(e.span.end - e.span.start)}`);
+      }
+      if (e.hints.length > 0) {
+        for (const hint of e.hints) console.error(`  Hint: ${hint}`);
+      }
       console.error();
     } else {
       throw e;
