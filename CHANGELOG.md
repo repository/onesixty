@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.2.0
+
+### Features
+
+- **Tolerant parsing:** `parse(input, { tolerant: true })` collects all errors and returns a best-effort CST instead of throwing on the first syntax error. Useful for editor integrations, as-you-type validation, and multi-error diagnostics.
+- **Tolerant tokenization:** `tokenize(input, { tolerant: true })` returns a `TokenizeResult` with the token stream and any lexer errors.
+- **`toCleanTree()`:** narrows a tolerant `ParseResult` to a strict `FilterNode` when error-free, or returns `null`. Safe to pass directly to `transform()`.
+- **`hasErrorNodes()`:** walks a tolerant CST and returns `true` if any `ErrorNode` is present.
+- **`ErrorNode` CST type:** new node type representing recovered syntax errors, with the original error, skipped tokens, and `expectedAt` span for editor diagnostics.
+
+### New exports
+
+`toCleanTree`, `hasErrorNodes`, `ErrorNode`, `ParseResult`, `TokenizeResult`, `MaybeError`
+
+## 0.1.3
+
+Minor test improvements.
+
 ## 0.1.2
 
 Enable npm provenance attestation on publish.
