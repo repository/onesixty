@@ -10,12 +10,14 @@ filter('role = "magical_girl" AND power >= 3', { role: "magical_girl", power: 5 
 
 onesixty is a zero-dependency TypeScript implementation of [AIP-160](https://google.aip.dev/160), the filtering language used across Google APIs. Parse filter expressions into a type-safe AST, evaluate them against plain objects, or compile them into your own backend (SQL, Elasticsearch, etc.).
 
-- **Zero dependencies,** just TypeScript, nothing else
+- **Zero dependencies,** 12kB gzipped. Just TypeScript, nothing else
+- **Fast.** 1M+ filter evaluations per second, 10-15x faster than alternatives
 - **Full AIP-160 grammar:** comparisons, `AND`/`OR`/`NOT`, field traversal, `:` (has), functions, wildcards, parentheses
 - **Compile once, run many:** parse a filter once, evaluate it against thousands of objects
 - **Async functions:** custom functions can return promises
 - **Serializable:** compiled filters survive `JSON.stringify` for storage and transfer
 - **Structured errors:** every error is a typed class with machine-readable data, not just a message string
+- **Tolerant mode:** collect all errors and get a best-effort CST for editor integrations and as-you-type validation
 - **Bring your own backend:** use the AST directly to generate SQL, Elasticsearch queries, or anything else
 
 ## Install
@@ -26,6 +28,8 @@ pnpm add onesixty
 yarn add onesixty
 bun add onesixty
 ```
+
+Try it interactively: `pnpm playground`
 
 ## Usage
 
@@ -71,6 +75,7 @@ filter("distance(lat, lng) < 100", coords, {
 Async functions work too. Use `filterAsync` or `compile().evaluateAsync()`:
 
 ```ts
+// Check if the current request is authorized for a resource
 const f = compile("authorized(resource)");
 
 await f.evaluateAsync(request, {
@@ -96,34 +101,60 @@ const f = CompiledFilter.fromSerialized(JSON.parse(json));
 f.evaluate({ status: "contracted" }); // true
 ```
 
-### Custom evaluation (SQL, Elasticsearch, etc.)
+### Pipeline API
 
-You don't need to use the built-in evaluator. Parse the filter into an AST and walk it yourself:
+For advanced use cases, the full parse-transform-evaluate pipeline is exposed as separate functions:
 
 ```ts
-import { parse, transform, type ASTNode } from "onesixty";
+import { parse, transform, evaluate, type ASTNode } from "onesixty";
 
+// Parse and transform in two steps: string -> CST -> AST
+const ast = transform(parse('status = "contracted" AND grief <= 50'));
+
+// Evaluate directly against an object
+evaluate(ast, { status: "contracted", grief: 30 }); // true
+```
+
+You can also skip the built-in evaluator entirely and handle evaluation through your own means with the AST.
+
+```ts
+// Walk the AST to build a WHERE clause
+const params: string[] = [];
 function toSQL(node: ASTNode | null): string {
-  if (node === null) return "1=1";
-  switch (node.type) {
-    case "and":
-      return node.children.map(toSQL).join(" AND ");
-    case "or":
-      return `(${node.children.map(toSQL).join(" OR ")})`;
-    case "not":
-      return `NOT (${toSQL(node.child)})`;
-    case "restriction":
-      return node.comparable.type === "member"
-        ? `${node.comparable.path.join(".")} ${node.comparator} ?`
-        : `${node.comparable.qualifiedName}() ${node.comparator} ?`;
-    default:
-      return "1=1";
+  if (!node) return "1=1";
+  if (node.type === "and") return node.children.map(toSQL).join(" AND ");
+  if (node.type === "not") return `NOT (${toSQL(node.child)})`;
+  if (node.type === "restriction" && node.comparable.type === "member") {
+    params.push(node.arg?.type === "value" ? node.arg.value : "");
+    return `${node.comparable.path.join(".")} ${node.comparator} $${params.length}`;
   }
+  return "1=1";
 }
 
-toSQL(transform(parse('status = "contracted" AND grief <= 50')));
-// "status = ? AND grief <= ?"
+toSQL(ast); // "status = $1 AND grief <= $2", params: ["contracted", "50"]
 ```
+
+### Tolerant parsing
+
+By default, `parse` throws on the first syntax error. Pass `tolerant: true` to collect all errors and get a best-effort CST instead. This is useful for editor integrations, as-you-type validation, and anywhere you want diagnostics without aborting.
+
+```ts
+import { parse, toCleanTree, transform } from "onesixty";
+
+const result = parse("status = AND power >= 3", { tolerant: true });
+
+result.ok; // false - there are errors
+result.errors; // [ExpectedValueError: Expected a value after '=', found 'AND']
+result.cst; // complete CST - 'status = <placeholder>' AND 'power >= 3'
+
+// If the tree is clean, narrow it to a strict FilterNode for evaluation
+const clean = toCleanTree(result);
+if (clean) {
+  const ast = transform(clean);
+}
+```
+
+The tolerant parser never throws. It uses insertion-based recovery to fill in missing values with zero-width placeholders, so subsequent valid expressions are still parsed. `toCleanTree` returns `null` if any errors were found, or a strict `FilterNode` you can pass to `transform`.
 
 ### Error handling
 
@@ -144,6 +175,50 @@ try {
 ```
 
 Every error subclass exposes the relevant tokens, positions, and context as typed readonly fields. See the JSDoc on each error class for details.
+
+---
+
+## Benchmarks
+
+Measured on a MacBook M4 Pro with Node.js 24, using `vitest bench`. All numbers are operations per second (higher is better). The comparison target is [`@tcn/aip-160`](https://www.npmjs.com/package/@tcn/aip-160), the other AIP-160 implementation on npm.
+
+### End-to-end: parse + evaluate
+
+| Expression                              |  onesixty | @tcn/aip-160 | Ratio |
+| --------------------------------------- | --------: | -----------: | ----: |
+| `a = 1`                                 | 2,285,479 |      149,225 |   15x |
+| 4 restrictions with AND, has, traversal |   572,782 |       43,775 |   13x |
+| OR + nested path + NOT + wildcard       |   352,348 |       35,659 |   10x |
+| Global text search on nested object     | 1,650,356 |      335,975 |    5x |
+
+### Compile once, evaluate many (x100 loop)
+
+| Approach                   | onesixty | @tcn/aip-160 | Ratio |
+| -------------------------- | -------: | -----------: | ----: |
+| `compile()` + `evaluate()` |  144,462 |          n/a |   n/a |
+| `filter()` (re-parse each) |   10,464 |          670 |   16x |
+
+### Stress tests
+
+| Scenario                               |  onesixty | @tcn/aip-160 | Ratio |
+| -------------------------------------- | --------: | -----------: | ----: |
+| 50 chained AND restrictions            |    42,447 |        2,461 |   17x |
+| 32 levels of parentheses               |   131,251 |       10,538 |   12x |
+| Last key in 1,000-key object           | 1,962,401 |      113,214 |   17x |
+| Global search miss on 1,000-key object |    93,253 |      118,047 |  0.8x |
+| Array fanout: 1,000 elements           |    20,984 |          n/a |   n/a |
+
+### Pipeline stages (onesixty internals)
+
+| Stage                       |    ops/sec |
+| --------------------------- | ---------: |
+| tokenize                    |  4,794,457 |
+| parse                       |  1,212,612 |
+| parse + transform           |  1,172,134 |
+| evaluate (pre-compiled AST) | 12,154,248 |
+| filter (end-to-end)         |  1,034,112 |
+
+Run the benchmarks yourself with `pnpm bench`.
 
 ---
 
@@ -168,7 +243,7 @@ onesixty implements the full [AIP-160](https://google.aip.dev/160) grammar. See 
 | Traversal        | `user.soul_gem.city = "Mitakihara"` | Dot-separated field paths                        |
 | Functions        | `cohort(request.user)`              | Custom functions, qualified names (`math.abs()`) |
 | Parentheses      | `(a OR b) AND c`                    | Grouping and precedence override                 |
-| Wildcards        | `name = "prod-*"`                   | Only in quoted strings with `=`                  |
+| Wildcards        | `name = "Mami-*"`                   | Only in quoted strings with `=`                  |
 
 **Precedence:** OR binds tighter than AND. `a AND b OR c` means `a AND (b OR c)`.
 
@@ -201,10 +276,12 @@ The `comparable` field on restrictions is always `ASTMemberNode | ASTFunctionNod
 <details>
 <summary>Parse options</summary>
 
-| Option      | Type     | Default | Description                       |
-| ----------- | -------- | ------- | --------------------------------- |
-| `maxDepth`  | `number` | `64`    | Maximum parenthesis nesting depth |
-| `maxLength` | `number` | `8192`  | Maximum input string length       |
+| Option      | Type      | Default | Description                                                           |
+| ----------- | --------- | ------- | --------------------------------------------------------------------- |
+| `maxDepth`  | `number`  | `64`    | Maximum parenthesis nesting depth                                     |
+| `maxLength` | `number`  | `8192`  | Maximum input string length                                           |
+| `tolerant`  | `boolean` | `false` | Collect errors instead of throwing; return type becomes `ParseResult` |
+| `maxErrors` | `number`  | `20`    | Stop recovery after this many errors (only with `tolerant`)           |
 
 </details>
 
@@ -223,18 +300,6 @@ The `comparable` field on restrictions is always `ASTMemberNode | ASTFunctionNod
 See the JSDoc on `EvaluateOptions` for full details on each option.
 
 </details>
-
-### Pipeline API
-
-For advanced use cases, the full parse-transform-evaluate pipeline is exposed as separate functions. See the JSDoc on `parse`, `transform`, and `evaluate` for details.
-
-```ts
-import { parse, transform, evaluate } from "onesixty";
-
-const cst = parse("grief <= 50"); // string -> CST
-const ast = transform(cst); // CST -> AST
-evaluate(ast, { grief: 30 }); // AST + object -> boolean
-```
 
 ## License
 

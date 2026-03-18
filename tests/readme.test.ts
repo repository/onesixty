@@ -6,6 +6,7 @@ import {
   evaluate,
   filter,
   parse,
+  toCleanTree,
   transform,
   type ASTNode,
 } from "../src";
@@ -50,27 +51,44 @@ describe("README examples", () => {
     expect(f.evaluate({ status: "contracted" })).toBe(true);
   });
 
+  it("custom evaluation: parse + transform + evaluate", () => {
+    const ast = transform(parse('status = "contracted" AND grief <= 50'));
+    expect(evaluate(ast, { status: "contracted", grief: 30 })).toBe(true);
+  });
+
   it("custom evaluation: toSQL", () => {
+    const params: string[] = [];
     function toSQL(node: ASTNode | null): string {
-      if (node === null) return "1=1";
-      switch (node.type) {
-        case "and":
-          return node.children.map(toSQL).join(" AND ");
-        case "or":
-          return `(${node.children.map(toSQL).join(" OR ")})`;
-        case "not":
-          return `NOT (${toSQL(node.child)})`;
-        case "restriction":
-          return node.comparable.type === "member"
-            ? `${node.comparable.path.join(".")} ${node.comparator} ?`
-            : `${node.comparable.qualifiedName}() ${node.comparator} ?`;
-        default:
-          return "1=1";
+      if (!node) return "1=1";
+      if (node.type === "and") return node.children.map(toSQL).join(" AND ");
+      if (node.type === "not") return `NOT (${toSQL(node.child)})`;
+      if (node.type === "restriction" && node.comparable.type === "member") {
+        params.push(node.arg?.type === "value" ? node.arg.value : "");
+        return `${node.comparable.path.join(".")} ${node.comparator} $${params.length}`;
       }
+      return "1=1";
     }
 
-    const result = toSQL(transform(parse('status = "contracted" AND grief <= 50')));
-    expect(result).toBe("status = ? AND grief <= ?");
+    const ast = transform(parse('status = "contracted" AND grief <= 50'));
+    expect(toSQL(ast)).toBe("status = $1 AND grief <= $2");
+    expect(params).toEqual(["contracted", "50"]);
+  });
+
+  it("tolerant parsing: collects errors, returns best-effort CST", () => {
+    const result = parse("status = AND power >= 3", { tolerant: true });
+    expect(result.ok).toBe(false);
+    expect(result.errors).toHaveLength(1);
+    expect(result.cst.expression).not.toBeNull();
+    expect(toCleanTree(result)).toBeNull();
+  });
+
+  it("tolerant parsing: clean tree round-trips to AST", () => {
+    const result = parse('status = "contracted" AND power >= 3', { tolerant: true });
+    expect(result.ok).toBe(true);
+    const clean = toCleanTree(result);
+    expect(clean).not.toBeNull();
+    const ast = transform(clean!);
+    expect(evaluate(ast, { status: "contracted", power: 5 })).toBe(true);
   });
 
   it("error handling: structured FilterError", () => {
@@ -85,11 +103,5 @@ describe("README examples", () => {
         expect(e.hints).toContain("Remove the duplicate 'AND', or add an expression between them");
       }
     }
-  });
-
-  it("pipeline API", () => {
-    const cst = parse("grief <= 50");
-    const ast = transform(cst);
-    expect(evaluate(ast, { grief: 30 })).toBe(true);
   });
 });

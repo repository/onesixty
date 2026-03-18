@@ -1,5 +1,5 @@
 export { type Span, type Token, TokenKind, type ComparatorKind, isComparatorKind } from "./types";
-export { tokenize } from "./lexer";
+export { tokenize, type TokenizeResult } from "./lexer";
 export {
   FilterError,
   LexerError,
@@ -25,11 +25,16 @@ export {
 } from "./errors";
 export {
   parse,
+  hasErrorNodes,
+  toCleanTree,
+  type MaybeError,
   type ParseOptions,
+  type ParseResult,
   type ArgNode,
   type CSTNode,
   type ComparableNode,
   type CompositeNode,
+  type ErrorNode,
   type ExpressionNode,
   type FactorNode,
   type FilterNode,

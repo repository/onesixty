@@ -12,6 +12,7 @@ import {
   FilterError,
   TokenKind,
   isComparatorKind,
+  toCleanTree,
 } from "../src";
 
 describe("snapshot: tokenize", () => {
@@ -415,6 +416,127 @@ describe("snapshot: errors", () => {
 
   it("negative field path", () => {
     expect(captureError(() => parse("a = -b.c"))).toMatchSnapshot();
+  });
+});
+
+function tolerant(
+  input: string,
+  options?: { maxDepth?: number; maxLength?: number; maxErrors?: number },
+) {
+  return parse(input, { tolerant: true, ...options });
+}
+
+describe("snapshot: tokenize (tolerant)", () => {
+  it("bare !", () => {
+    expect(tokenize("a ! b", { tolerant: true })).toMatchSnapshot();
+  });
+
+  it("unterminated string", () => {
+    expect(tokenize('a = "hello', { tolerant: true })).toMatchSnapshot();
+  });
+
+  it("valid input (no errors)", () => {
+    expect(tokenize("a = 1", { tolerant: true })).toMatchSnapshot();
+  });
+});
+
+describe("snapshot: parse (tolerant)", () => {
+  it("valid input", () => {
+    expect(tolerant("a = 1 AND b = 2")).toMatchSnapshot();
+  });
+
+  it("empty input", () => {
+    expect(tolerant("")).toMatchSnapshot();
+  });
+
+  it("trailing content", () => {
+    expect(tolerant("a = 1) AND b = 2")).toMatchSnapshot();
+  });
+
+  it("AND AND (expected expression)", () => {
+    expect(tolerant("a AND AND b")).toMatchSnapshot();
+  });
+
+  it("OR OR (expected expression)", () => {
+    expect(tolerant("a OR OR b")).toMatchSnapshot();
+  });
+
+  it("trailing AND", () => {
+    expect(tolerant("a AND")).toMatchSnapshot();
+  });
+
+  it("empty parentheses", () => {
+    expect(tolerant("()")).toMatchSnapshot();
+  });
+
+  it("unclosed parenthesis", () => {
+    expect(tolerant("(a = 1")).toMatchSnapshot();
+  });
+
+  it("missing value after comparator (insertion recovery)", () => {
+    expect(tolerant("a = AND b = 1")).toMatchSnapshot();
+  });
+
+  it("missing arg after comma (insertion recovery)", () => {
+    expect(tolerant("fn(a,)")).toMatchSnapshot();
+  });
+
+  it("unmatched closing paren (insertion recovery)", () => {
+    expect(tolerant("a = ) b = 1")).toMatchSnapshot();
+  });
+
+  it("quoted function name", () => {
+    expect(tolerant('"fn"()')).toMatchSnapshot();
+  });
+
+  it("unclosed function call", () => {
+    expect(tolerant("fn(a, b")).toMatchSnapshot();
+  });
+
+  it("NOT without expression", () => {
+    expect(tolerant("NOT AND a")).toMatchSnapshot();
+  });
+
+  it("negative field path", () => {
+    expect(tolerant("a = -b.c")).toMatchSnapshot();
+  });
+
+  it("depth limit exceeded", () => {
+    expect(tolerant("((a))", { maxDepth: 1 })).toMatchSnapshot();
+  });
+
+  it("input length exceeded", () => {
+    expect(tolerant("a".repeat(100), { maxLength: 10 })).toMatchSnapshot();
+  });
+
+  it("maxErrors stops recovery", () => {
+    expect(tolerant("() () () () ()", { maxErrors: 2 })).toMatchSnapshot();
+  });
+
+  it("multiple errors", () => {
+    expect(tolerant("() AND ()")).toMatchSnapshot();
+  });
+
+  it("lexer + parser errors combined", () => {
+    expect(tolerant('a = "unterminated AND b AND AND c')).toMatchSnapshot();
+  });
+});
+
+describe("snapshot: toCleanTree", () => {
+  it("clean tolerant CST narrows to strict FilterNode", () => {
+    const result = tolerant("a = 1 AND b = 2");
+    const clean = toCleanTree(result);
+    expect(clean).toMatchSnapshot();
+  });
+
+  it("dirty tolerant CST returns null", () => {
+    const result = tolerant("a AND AND b");
+    expect(toCleanTree(result)).toMatchSnapshot();
+  });
+
+  it("clean tree passes through transform", () => {
+    const clean = toCleanTree(tolerant("power >= 5 AND name:active"));
+    expect(transform(clean!)).toMatchSnapshot();
   });
 });
 

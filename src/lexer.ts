@@ -1,5 +1,6 @@
 import type { Token } from "./types";
 import { TokenKind } from "./types";
+import type { LexerError } from "./errors";
 import { UnexpectedCharacterError, UnterminatedStringError } from "./errors";
 
 // Pre-computed: 1 = valid text character, 0 = delimiter/whitespace
@@ -36,8 +37,12 @@ const CH_BACKSLASH = 0x5c; // \
 
 class Lexer {
   private pos = 0;
+  public readonly errors: LexerError[] = [];
 
-  public constructor(private readonly input: string) {}
+  public constructor(
+    private readonly input: string,
+    private readonly tolerant: boolean,
+  ) {}
 
   public tokenize(): Token[] {
     const tokens: Token[] = [];
@@ -75,11 +80,15 @@ class Lexer {
             tokens.push(this.emit(TokenKind.NotEquals, "!="));
             continue;
           }
-          throw new UnexpectedCharacterError(
+          const bangError = new UnexpectedCharacterError(
             "!",
             { start: this.pos, end: this.pos + 1 },
             this.input,
           );
+          if (!this.tolerant) throw bangError;
+          this.errors.push(bangError);
+          this.pos++;
+          continue;
         }
         case CH_EQ:
           tokens.push(this.emit(TokenKind.Equals, "="));
@@ -137,7 +146,12 @@ class Lexer {
     }
 
     if (scanPos >= len) {
-      throw new UnterminatedStringError(quote, { start, end: len }, this.input);
+      const strError = new UnterminatedStringError(quote, { start, end: len }, this.input);
+      if (!this.tolerant) throw strError;
+      this.errors.push(strError);
+      const value = this.input.slice(this.pos, len);
+      this.pos = len;
+      return { kind: TokenKind.String, value, start, end: len };
     }
     const value = this.input.slice(this.pos, scanPos);
     this.pos = scanPos + 1;
@@ -174,7 +188,10 @@ class Lexer {
       this.pos++;
     }
     if (this.pos >= len) {
-      throw new UnterminatedStringError(quote, { start, end: len }, this.input);
+      const escError = new UnterminatedStringError(quote, { start, end: len }, this.input);
+      if (!this.tolerant) throw escError;
+      this.errors.push(escError);
+      return { kind: TokenKind.String, value, start, end: len };
     }
     this.pos++;
     return { kind: TokenKind.String, value, start, end: this.pos };
@@ -200,6 +217,16 @@ class Lexer {
 }
 
 /**
+ * Result of tokenizing with `tolerant: true`.
+ */
+export interface TokenizeResult {
+  /** Token stream, always terminated by an `EOF` token. */
+  tokens: Token[];
+  /** Lexer errors collected during tokenization. Empty on success. */
+  errors: LexerError[];
+}
+
+/**
  * Tokenize an AIP-160 filter expression into a stream of tokens.
  *
  * @param input - The raw filter expression string.
@@ -212,6 +239,20 @@ class Lexer {
  * //  Text("name"), Equals("="), String("Alice"), EOF]
  * ```
  */
-export function tokenize(input: string): Token[] {
-  return new Lexer(input).tokenize();
+export function tokenize(input: string): Token[];
+/**
+ * Tokenize in tolerant mode: collect errors instead of throwing.
+ *
+ * @param input - The raw filter expression string.
+ * @param options - Must include `tolerant: true`.
+ * @returns A {@link TokenizeResult} with the token stream and any errors.
+ */
+export function tokenize(input: string, options: { tolerant: true }): TokenizeResult;
+export function tokenize(input: string, options?: { tolerant: boolean }): Token[] | TokenizeResult {
+  const lexer = new Lexer(input, options?.tolerant === true);
+  const tokens = lexer.tokenize();
+  if (options?.tolerant === true) {
+    return { tokens, errors: lexer.errors };
+  }
+  return tokens;
 }
